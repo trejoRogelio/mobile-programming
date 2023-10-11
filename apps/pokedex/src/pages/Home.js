@@ -4,19 +4,19 @@ import { styles } from '../../App';
 
 // Services
 
-function Home() {
-    return (
-        <View style={styles.container}>
-            <Text>Home Page</Text>
-            <Image
-                style={styles.img}
-                source={require('../../assets/images/pokebola.png')}
-            />
-            <Link to="/information">
-                <Text>Go to information page</Text>
-            </Link>
-        </View>
-    );
-}
+const Home = () => {
+  return (
+    <View style={styles.container}>
+      <Text style={styles.txt_title}>Pokedex home page</Text>
+      <Image
+        style={styles.img}
+        source={require('../../assets/images/pokebola.png')}
+      />
+      <Link to='/information' style={styles.btn_custom}>
+        <Text style={styles.txt_white}>Go to information page</Text>
+      </Link>
+    </View>
+  );
+};
 
 export default Home;
