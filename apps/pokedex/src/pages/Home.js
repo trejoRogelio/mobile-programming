@@ -1,26 +1,28 @@
-import { Button, StyleSheet, Text, View, Image, TextInput, ActivityIndicator } from 'react-native';
-import { Link } from 'react-router-native';
-
-
-// Services
-import { getPokemonByName } from '../services/pokeapi';
+import { Button, Text, View, Image, TextInput, ActivityIndicator } from 'react-native';
 import { useState } from 'react';
+import { Link } from 'react-router-native';
+import Aesthetic from '../components/Aesthetic';
+
+import { getPokemonByName } from '../services/pokeapi';
 
 function Home() {
     const [pokemonName, setPokemonName] = useState('');
     const [pokemon, setPokemon] = useState();
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(false);
+    const [notFound, setNotFound] = useState(false);
 
     const handdleChangeText = (namePokemon) => setPokemonName(namePokemon);
 
     const handdlePress = async () => {
         setLoading(true);
+        setNotFound(false); // Reset notFound flag
         try {
-            const pokeInformation = await getPokemonByName(pokemonName);
+            const lowercaseName = pokemonName.toLowerCase();
+            const pokeInformation = await getPokemonByName(lowercaseName);
             setPokemon(pokeInformation);
         } catch (error) {
-            setError(!!error);
+            setNotFound(true);
         } finally {
             setLoading(false);
         }
@@ -28,7 +30,7 @@ function Home() {
 
     return (
         <View>
-            <View style={styles.main}>
+            <View style={Aesthetic.main}>
                 {
                     loading && <ActivityIndicator style={{ width: 'auto', height: 250 }} size='large' color='#E53939' />
                 }
@@ -47,11 +49,22 @@ function Home() {
                     )
                 }
                 {
-                    (error || !pokemon && !loading) && <Image
-                        style={{ height: 250 }}
-                        source={require('../../assets/pokebola.png')} />
+                    notFound && (
+                        <Text style={Aesthetic.textError}>
+                            Pokemon not found
+                        </Text>
+                    )
                 }
-                <View style={styles.inputs}>
+                {
+                    (error || (!pokemon && !loading && !notFound)) && (
+                        <Image
+                            style={{ height: 250 }}
+                            source={require('../../assets/pokebola.png')}
+                        />
+                    )
+                }
+
+                <View style={Aesthetic.inputs}>
                     <TextInput
                         onChangeText={handdleChangeText}
                         placeholder='Search a Pokemon!'
@@ -61,24 +74,9 @@ function Home() {
                         title='Search'
                     />
                 </View>
-                <View>
-                    <Text>Filters!!!</Text>
-                </View>
             </View>
         </View>
     );
 }
-
-const styles = StyleSheet.create({
-    main: {
-        flexDirection: 'column',
-        alignItems: 'center',
-    },
-    inputs: {
-        width: 400,
-        flexDirection: 'row',
-        justifyContent: 'space-around'
-    }
-});
 
 export default Home;
