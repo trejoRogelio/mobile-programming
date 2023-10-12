@@ -36,14 +36,6 @@ function Information() {
                     <Text>Height: {pokemon.height}</Text>
                     <Text>Weight: {pokemon.weight}</Text>
                     <Text>Types: {pokemon.types.map(type => type.type.name).join(', ')}</Text>
-                    <Text>Abilities: {pokemon.abilities.map(ability => ability.ability.name).join(', ')}</Text>
-                    <Text>Base Experience: {pokemon.base_experience}</Text>
-                    <Text>Stats:</Text>
-                    {pokemon.stats.map(stat => (
-                        <Text key={stat.stat.name}>
-                            {stat.stat.name}: {stat.base_stat}
-                        </Text>
-                    ))}
                     {/* Add more attributes as needed */}
                 </View>
             )}
