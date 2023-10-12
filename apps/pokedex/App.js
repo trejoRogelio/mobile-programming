@@ -6,17 +6,19 @@ import { NativeRouter, Routes, Route } from 'react-router-native';
 // Components
 import Home from './src/pages/Home';
 import Information from './src/pages/Information';
-import Navbar from './src/components/Navbar';
+import Header from './src/components/Header'; // Importa Header
+import Button from './src/components/Button'; // Importa Button
+import Footer from './src/components/Footer'; // Importa Footer
 
 export default function App() {
-    return (
-        <NativeRouter>
-            <Navbar />
-            <Routes>
-                <Route path='/' element={<Home />} />
-                <Route path='/information/:pokemonid' element={<Information />} />
-            </Routes>
-        </NativeRouter>
-
-    );
+  return (
+    <NativeRouter>
+      <Header /> {/* Agrega el encabezado */}
+      <Routes>
+        <Route path='/' element={<Home />} />
+        <Route path='/information/:pokemonid' element={<Information />} />
+      </Routes>
+      <Footer /> {/* Agrega el pie de página */}
+    </NativeRouter>
+  );
 }
