@@ -1,58 +1,60 @@
-import { Button, Text, View, } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { Text, View, ScrollView } from 'react-native';
 import { Link, useParams } from 'react-router-native';
-import { useEffect, useState } from 'react';
-
-// Services 
-import { getPokemonById } from '../services/pokeapi';
 
 function Information() {
-    const [pokemon, setPokemon] = useState();
-
+    const [pokemon, setPokemon] = useState(null);
     const { pokemonid } = useParams();
 
     useEffect(() => {
-        // Manera de Hacelo con promesas
-        // getPokemonById(pokemonid)
-        //     .then((pokeInofrmation) => {
-        //         console.log(pokeInofrmation);
-        //     })
-        //     .catch((error) => {
-        //     })
-        //     .finally(() => {
-
-        //     });
-
-        // Async/Await -> Funcion 
-        // const fn = async () => {
-        //     const pokeInformation = await getPokemonById(pokemonid);
-
-        //     console.log(pokeInformation);
-        // };
-        // fn();
-
-        // Async/Await -> IEFI
-        (async () => {
+        // Utiliza una función async/await para obtener la información del Pokémon
+        const fetchData = async () => {
             try {
-                const pokeInformation = await getPokemonById(pokemonid);
+                const pokeInformation = JSON.parse(decodeURIComponent(pokemonid));
                 setPokemon(pokeInformation);
             } catch (error) {
-                console.error(error);
-            } finally {
-                console.log('end!!!');
+                console.error('Error fetching Pokémon data:', error);
             }
-        })();
+        };
 
-    }, []);
+        fetchData();
+    }, [pokemonid]);
 
     return (
-        <View>
-            <Text>Information Page</Text>
-            <Text>{pokemonid}</Text>
-
+        <ScrollView>
+            <Text style={{ fontSize: 24, fontWeight: 'bold' }}>
+                Pokemon Information
+            </Text>
+            {pokemon && (
+                <View>
+                    <Text>Name: {pokemon.name}</Text>
+                    <Text>Height: {pokemon.height}</Text>
+                    <Text>Weight: {pokemon.weight}</Text>
+                    <Text>Base Experience: {pokemon.base_experience}</Text>
+                    <Text>Abilities:</Text>
+                    <ul>
+                        {pokemon.abilities.map((ability, index) => (
+                            <li key={index}>{ability.ability.name}</li>
+                        ))}
+                    </ul>
+                    <Text>Types:</Text>
+                    <ul>
+                        {pokemon.types.map((type, index) => (
+                            <li key={index}>{type.type.name}</li>
+                        ))}
+                    </ul>
+                    <Text>Stats:</Text>
+                    <ul>
+                        {pokemon.stats.map((stat, index) => (
+                            <li key={index}>{stat.stat.name}: {stat.base_stat}</li>
+                        ))}
+                    </ul>
+                </View>
+            )}
             <Link to='/'>
-                <Text> Go To Home!!!</Text>
+                <Text>Go To Home</Text>
             </Link>
-        </View>
+        </ScrollView>
     );
 }
 
