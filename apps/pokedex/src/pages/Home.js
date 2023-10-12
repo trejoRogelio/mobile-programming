@@ -2,6 +2,8 @@ import { Button, StyleSheet, Text, View, Image, TextInput, ActivityIndicator } f
 import { Link } from 'react-router-native';
 
 
+// Esto es un comentari de prueba para git
+
 // Services
 import { getPokemonByName } from '../services/pokeapi';
 import { useState } from 'react';
