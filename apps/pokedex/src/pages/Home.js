@@ -1,10 +1,11 @@
-import { Button, StyleSheet, Text, View, Image, TextInput, ActivityIndicator } from 'react-native';
+import { Button, StyleSheet,  View, Image, TextInput, ActivityIndicator, Alert, Text } from 'react-native';
 import { Link } from 'react-router-native';
 
 
 // Services
 import { getPokemonByName } from '../services/pokeapi';
 import { useState } from 'react';
+import { ListPokemon } from '../components/List/ListPokemon';
 
 function Home() {
     const [pokemonName, setPokemonName] = useState('');
@@ -12,22 +13,22 @@ function Home() {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(false);
 
-    const handdleChangeText = (namePokemon) => setPokemonName(namePokemon);
+    const handleChangeText = (namePokemon) => setPokemonName(namePokemon);
 
-    const handdlePress = async () => {
+    const handlePress = async () => {
         setLoading(true);
         try {
-            const pokeInformation = await getPokemonByName(pokemonName);
+            const pokeInformation = await getPokemonByName(pokemonName.toLowerCase());
             setPokemon(pokeInformation);
         } catch (error) {
-            setError(!!error);
+            Alert.alert('Pokemon No encontrado!');
         } finally {
             setLoading(false);
         }
     };
 
     return (
-        <View>
+        <View style={{flex:1}}>
             <View style={styles.main}>
                 {
                     loading && <ActivityIndicator style={{ width: 'auto', height: 250 }} size='large' color='#E53939' />
@@ -53,18 +54,18 @@ function Home() {
                 }
                 <View style={styles.inputs}>
                     <TextInput
-                        onChangeText={handdleChangeText}
+                        style={{borderColor:'black',borderWidth:1 ,width:'50%', marginRight:10 ,borderRadius:10 }}
+                        onChangeText={handleChangeText}
                         placeholder='Search a Pokemon!'
                     />
                     <Button
-                        onPress={handdlePress}
+                        onPress={handlePress}
                         title='Search'
                     />
                 </View>
-                <View>
-                    <Text>Filters!!!</Text>
-                </View>
             </View>
+            <ListPokemon/>
+            <View style={{height:100 ,marginBottom:50}}><Text>a</Text></View>
         </View>
     );
 }
@@ -77,7 +78,7 @@ const styles = StyleSheet.create({
     inputs: {
         width: 400,
         flexDirection: 'row',
-        justifyContent: 'space-around'
+        justifyContent: 'center'
     }
 });
 

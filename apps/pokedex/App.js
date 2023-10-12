@@ -1,6 +1,4 @@
 // Dependencias
-import { View } from 'react-native';
-import Constants from 'expo-constants';
 import { NativeRouter, Routes, Route } from 'react-router-native';
 
 // Components
