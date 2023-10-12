@@ -1,59 +1,64 @@
-import { Button, Text, View, } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { Text, View, Image, StyleSheet, ActivityIndicator } from 'react-native';
 import { Link, useParams } from 'react-router-native';
-import { useEffect, useState } from 'react';
-
-// Services 
 import { getPokemonById } from '../services/pokeapi';
+import PokemonData from '../components/PokemonData';
 
-function Information() {
-    const [pokemon, setPokemon] = useState();
+const Information = () => {
+    const [pokemon, setPokemon] = useState(null);
 
     const { pokemonid } = useParams();
 
     useEffect(() => {
-        // Manera de Hacelo con promesas
-        // getPokemonById(pokemonid)
-        //     .then((pokeInofrmation) => {
-        //         console.log(pokeInofrmation);
-        //     })
-        //     .catch((error) => {
-        //     })
-        //     .finally(() => {
-
-        //     });
-
-        // Async/Await -> Funcion 
-        // const fn = async () => {
-        //     const pokeInformation = await getPokemonById(pokemonid);
-
-        //     console.log(pokeInformation);
-        // };
-        // fn();
-
-        // Async/Await -> IEFI
-        (async () => {
+        const fetchPokemon = async () => {
             try {
                 const pokeInformation = await getPokemonById(pokemonid);
                 setPokemon(pokeInformation);
             } catch (error) {
                 console.error(error);
-            } finally {
-                console.log('end!!!');
             }
-        })();
+        };
 
-    }, []);
+        fetchPokemon();
+    }, [pokemonid]);
 
     return (
-        <View>
-            <Text>Information Page</Text>
-            <Text>{pokemonid}</Text>
-
-            <Link to='/'>
-                <Text> Go To Home!!!</Text>
+        <View style={styles.container}>
+            {pokemon ? (
+                <PokemonData pokemon={pokemon} />
+            ) : (
+                <ActivityIndicator style={styles.loader} size='large' color='#f3cf2f' />
+            )}
+    
+            <Link to="/">
+                <Text style={styles.linkText}>Volver al inicio</Text>
             </Link>
         </View>
-    );
-}
+    );    
+    
+    
+    
+    
+    
+};
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: '#5874b3',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    loader: {
+        width: 'auto',
+        height: 250,
+    },
+    linkText: {
+        marginTop: 20,
+        fontSize: 20,
+        fontWeight: 'bold',
+        color: '#74d461',
+    },
+});
 
 export default Information;
