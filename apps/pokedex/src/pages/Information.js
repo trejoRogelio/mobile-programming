@@ -1,59 +1,37 @@
-import { Button, Text, View, } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { Text, View } from 'react-native';
 import { Link, useParams } from 'react-router-native';
-import { useEffect, useState } from 'react';
+import PokemonInfo from '../components/PokemonInfo';
 
-// Services 
+// Services
 import { getPokemonById } from '../services/pokeapi';
 
 function Information() {
-    const [pokemon, setPokemon] = useState();
+  const [pokemon, setPokemon] = useState(null);
+  const { pokemonid } = useParams();
 
-    const { pokemonid } = useParams();
+  useEffect(() => {
+    const fetchPokemonData = async () => {
+      try {
+        const pokeInformation = await getPokemonById(pokemonid);
+        setPokemon(pokeInformation);
+      } catch (error) {
+        console.error(error);
+      }
+    };
 
-    useEffect(() => {
-        // Manera de Hacelo con promesas
-        // getPokemonById(pokemonid)
-        //     .then((pokeInofrmation) => {
-        //         console.log(pokeInofrmation);
-        //     })
-        //     .catch((error) => {
-        //     })
-        //     .finally(() => {
+    fetchPokemonData();
+  }, [pokemonid]);
 
-        //     });
+  return (
+    <View>
+      {pokemon && <PokemonInfo pokemon={pokemon} />}
 
-        // Async/Await -> Funcion 
-        // const fn = async () => {
-        //     const pokeInformation = await getPokemonById(pokemonid);
-
-        //     console.log(pokeInformation);
-        // };
-        // fn();
-
-        // Async/Await -> IEFI
-        (async () => {
-            try {
-                const pokeInformation = await getPokemonById(pokemonid);
-                setPokemon(pokeInformation);
-            } catch (error) {
-                console.error(error);
-            } finally {
-                console.log('end!!!');
-            }
-        })();
-
-    }, []);
-
-    return (
-        <View>
-            <Text>Information Page</Text>
-            <Text>{pokemonid}</Text>
-
-            <Link to='/'>
-                <Text> Go To Home!!!</Text>
-            </Link>
-        </View>
-    );
+      <Link to='/'>
+        <Text>Go To Home!!!</Text>
+      </Link>
+    </View>
+  );
 }
 
 export default Information;
