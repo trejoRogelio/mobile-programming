@@ -1,4 +1,4 @@
-import { Button, Text, View, } from 'react-native';
+import { Button, Text, View } from 'react-native';
 import { Link, useParams } from 'react-router-native';
 import { useEffect, useState } from 'react';
 
@@ -11,26 +11,7 @@ function Information() {
     const { pokemonid } = useParams();
 
     useEffect(() => {
-        // Manera de Hacelo con promesas
-        // getPokemonById(pokemonid)
-        //     .then((pokeInofrmation) => {
-        //         console.log(pokeInofrmation);
-        //     })
-        //     .catch((error) => {
-        //     })
-        //     .finally(() => {
 
-        //     });
-
-        // Async/Await -> Funcion 
-        // const fn = async () => {
-        //     const pokeInformation = await getPokemonById(pokemonid);
-
-        //     console.log(pokeInformation);
-        // };
-        // fn();
-
-        // Async/Await -> IEFI
         (async () => {
             try {
                 const pokeInformation = await getPokemonById(pokemonid);
@@ -47,10 +28,28 @@ function Information() {
     return (
         <View>
             <Text>Information Page</Text>
-            <Text>{pokemonid}</Text>
+            <Text>Pokemon ID: {pokemonid}</Text>
+
+            {pokemon && (
+                <View>
+                    <Text>Name: {pokemon.name}</Text>
+                    <Text>Height: {pokemon.height}</Text>
+                    <Text>Weight: {pokemon.weight}</Text>
+                    <Text>Types: {pokemon.types.map(type => type.type.name).join(', ')}</Text>
+                    <Text>Abilities: {pokemon.abilities.map(ability => ability.ability.name).join(', ')}</Text>
+                    <Text>Base Experience: {pokemon.base_experience}</Text>
+                    <Text>Stats:</Text>
+                    {pokemon.stats.map(stat => (
+                        <Text key={stat.stat.name}>
+                            {stat.stat.name}: {stat.base_stat}
+                        </Text>
+                    ))}
+                    {/* Add more attributes as needed */}
+                </View>
+            )}
 
             <Link to='/'>
-                <Text> Go To Home!!!</Text>
+                <Text>Go To Home!!!</Text>
             </Link>
         </View>
     );
