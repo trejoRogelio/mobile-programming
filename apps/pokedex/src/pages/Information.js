@@ -1,37 +1,15 @@
-import { Button, Text, View, } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { Text, View, StyleSheet } from 'react-native';
 import { Link, useParams } from 'react-router-native';
-import { useEffect, useState } from 'react';
-
-// Services 
 import { getPokemonById } from '../services/pokeapi';
 
-function Information() {
-    const [pokemon, setPokemon] = useState();
 
+function Information() {
+    const [pokemon, setPokemon] = useState(null);
     const { pokemonid } = useParams();
 
     useEffect(() => {
-        // Manera de Hacelo con promesas
-        // getPokemonById(pokemonid)
-        //     .then((pokeInofrmation) => {
-        //         console.log(pokeInofrmation);
-        //     })
-        //     .catch((error) => {
-        //     })
-        //     .finally(() => {
-
-        //     });
-
-        // Async/Await -> Funcion 
-        // const fn = async () => {
-        //     const pokeInformation = await getPokemonById(pokemonid);
-
-        //     console.log(pokeInformation);
-        // };
-        // fn();
-
-        // Async/Await -> IEFI
-        (async () => {
+        const fetchPokemonInfo = async () => {
             try {
                 const pokeInformation = await getPokemonById(pokemonid);
                 setPokemon(pokeInformation);
@@ -40,20 +18,82 @@ function Information() {
             } finally {
                 console.log('end!!!');
             }
-        })();
+        };
 
-    }, []);
+        fetchPokemonInfo();
+
+    }, [pokemonid]);
 
     return (
-        <View>
-            <Text>Information Page</Text>
-            <Text>{pokemonid}</Text>
+        <View style={styles.container}>
+
+            <Text>
+                Name: {pokemon?.name}
+            </Text>
+            <Text>
+                ID: {pokemonid}
+            </Text>
+            <Text>
+                Name Item: {pokemon?.held_items[0]?.item?.name}
+            </Text>
+            <Text>
+                Weight: {pokemon?.weight}
+            </Text>
+            <Text>
+                Abilities: {pokemon?.abilities[0]?.ability?.name}
+            </Text>
+            <Text>
+                Types: {pokemon?.types[0]?.type?.name}
+            </Text>
+            <Text>
+                Types_name: {pokemon?.types[0]?.type?.name}
+            </Text>
+            <Text>
+                Version: {pokemon?.game_indices[0]?.version?.name}
+            </Text>
+            <Text>
+                Order: {pokemon?.order}
+            </Text>
+
+
+
 
             <Link to='/'>
-                <Text> Go To Home!!!</Text>
+                <Text style={styles.link}> Regresar </Text>
             </Link>
         </View>
     );
 }
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: '#F5F5F5',
+        padding: 20,
+    },
+    title: {
+        fontSize: 28,
+        fontWeight: 'bold',
+        marginBottom: 10,
+        color: '#333',
+    },
+    text: {
+        fontSize: 30,
+        marginBottom: 5,
+        color: '#555',
+
+    },
+    link: {
+        color: '#007BFF',
+        fontSize: 20,
+        marginTop: 20,
+    },
+    label: {
+        fontWeight: 'bold',
+        color: '#000',
+    },
+});
 
 export default Information;
