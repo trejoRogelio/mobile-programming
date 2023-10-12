@@ -52,14 +52,18 @@ const styles = StyleSheet.create({
     },
     attribute: {
         fontSize: 16,
+        color: 'white',
+        fontWeight: 'bold'
     },
     ability: {
         fontSize: 14,
         marginLeft: 20,
+        color: 'white'
     },
     stat: {
         fontSize: 14,
         marginLeft: 20,
+        color: 'white'
     },
 });
 
