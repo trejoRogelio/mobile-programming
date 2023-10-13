@@ -7,7 +7,7 @@ function Information() {
     const { pokemonid } = useParams();
 
     useEffect(() => {
-        // Utiliza una función async/await para obtener la información del Pokémon
+
         const fetchData = async () => {
             try {
                 const pokeInformation = JSON.parse(decodeURIComponent(pokemonid));

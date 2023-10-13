@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { View, Text, Image, TextInput, Button, ActivityIndicator, StyleSheet, ScrollView } from 'react-native';
-import CustomButton from '../components/CustomButton'; // Importa el componente de botón personalizado
-import HighlightedText from '../components/HighlightedText'; // Importa el componente de texto destacado
-import ListComponent from '../components/ListComponent'; // Importa el componente de lista
-import Footer from '../components/Footer'; // Importa el componente Footer
+import CustomButton from '../components/CustomButton'; 
+import HighlightedText from '../components/HighlightedText'; 
+import ListComponent from '../components/ListComponent';
+import Footer from '../components/Footer'; 
 
 // Services
 import { getPokemonByName } from '../services/pokeapi';
@@ -13,7 +13,7 @@ const Home = () => {
     const [pokemon, setPokemon] = useState(null);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
-    const [pokemonList, setPokemonList] = useState([]); // Lista de Pokémon
+    const [pokemonList, setPokemonList] = useState([]); 
 
     const handleChangeText = (namePokemon) => {
         setPokemonName(namePokemon);

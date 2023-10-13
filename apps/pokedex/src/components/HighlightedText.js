@@ -11,7 +11,7 @@ function HighlightedText({ text }) {
 
 const styles = StyleSheet.create({
   highlightedTextContainer: {
-    backgroundColor: '#E53939', // Cambia el color de fondo del texto destacado
+    backgroundColor: '#E53939',
     padding: 10,
     borderRadius: 5,
   },
