@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
     navbar: {
         marginTop: Constants.statusBarHeight,
         padding: 20,
-        backgroundColor: '#E53939'
+        backgroundColor: '#318CE7'
     },
     navbarText: {
         color: 'white',
