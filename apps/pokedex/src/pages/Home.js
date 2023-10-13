@@ -3,7 +3,6 @@ import { Link } from 'react-router-native';
 import MensajeError from '../components/MensajeError';
 import { getPokemonByName } from '../services/pokeapi';
 import { useState } from 'react';
-import PokemonTypeList from '../components/PokemonTypeList';
 
 function Home() {
     const [pokemonName, setPokemonName] = useState('');
@@ -88,6 +87,9 @@ function Home() {
                         title='Search'
                     />
                 </View>
+                <Link to='/lista'>
+                    <Text>Ver lista</Text>
+                </Link>
             </View>
             <MensajeError
                 mensaje={errorMessage}
