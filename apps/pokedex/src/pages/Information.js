@@ -1,56 +1,45 @@
-import { Button, Text, View, } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { View, Text, Button, ActivityIndicator, Image } from 'react-native';
 import { Link, useParams } from 'react-router-native';
-import { useEffect, useState } from 'react';
-
-// Services 
+import PokemonDetails from '../components/PokemonDetails';
 import { getPokemonById } from '../services/pokeapi';
 
 function Information() {
     const [pokemon, setPokemon] = useState();
-
     const { pokemonid } = useParams();
 
     useEffect(() => {
-        // Manera de Hacelo con promesas
-        // getPokemonById(pokemonid)
-        //     .then((pokeInofrmation) => {
-        //         console.log(pokeInofrmation);
-        //     })
-        //     .catch((error) => {
-        //     })
-        //     .finally(() => {
-
-        //     });
-
-        // Async/Await -> Funcion 
-        // const fn = async () => {
-        //     const pokeInformation = await getPokemonById(pokemonid);
-
-        //     console.log(pokeInformation);
-        // };
-        // fn();
-
-        // Async/Await -> IEFI
         (async () => {
             try {
                 const pokeInformation = await getPokemonById(pokemonid);
                 setPokemon(pokeInformation);
             } catch (error) {
                 console.error(error);
-            } finally {
-                console.log('end!!!');
             }
         })();
-
     }, []);
 
     return (
         <View>
-            <Text>Information Page</Text>
-            <Text>{pokemonid}</Text>
-
+            <Text>Detalles del Pokémon</Text>
+            {pokemon ? (
+                <>
+                    <Image
+                        style={{ height: 250, width: 250 }}
+                        source={{
+                            uri: pokemon.sprites.front_default,
+                        }}
+                    />
+                    <PokemonDetails pokemon={pokemon} />
+                </>
+            ) : (
+                <ActivityIndicator style={{ width: 'auto', height: 250 }} size='large' color='#E53939' />
+            )}
             <Link to='/'>
-                <Text> Go To Home!!!</Text>
+                <Image
+                    style={{ height: 100, width: 100 }}
+                    source={require('../../assets/home.png')}
+                />
             </Link>
         </View>
     );

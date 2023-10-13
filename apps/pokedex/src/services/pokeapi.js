@@ -23,3 +23,13 @@ export async function getPokemonById(id) {
 
     return resp.json();
 }
+export async function getAllPokemon() {
+    try {
+        
+        const response = await fetch('https://pokeapi.co/api/v2/pokemon');
+        const data = await response.json();
+        return data.results; // Asumiendo que la respuesta contiene un campo `results`
+    } catch (error) {
+        throw error;
+    }
+}
