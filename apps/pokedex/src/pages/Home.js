@@ -1,5 +1,7 @@
 import { Button, StyleSheet, Text, View, Image, TextInput, ActivityIndicator } from 'react-native';
 import { Link } from 'react-router-native';
+import ErrorMessage from '../components/ErrorMessage';
+import Loading from '../components/Loading';
 
 
 // Services
@@ -28,9 +30,10 @@ function Home() {
 
     return (
         <View>
+     
             <View style={styles.main}>
                 {
-                    loading && <ActivityIndicator style={{ width: 'auto', height: 250 }} size='large' color='#E53939' />
+                    loading && <Loading/>
                 }
                 {
                     !loading && pokemon && (
@@ -47,9 +50,11 @@ function Home() {
                     )
                 }
                 {
-                    (error || !pokemon && !loading) && <Image
+                    (error || !pokemon && !loading) && <View><Image
                         style={{ height: 250 }}
                         source={require('../../assets/pokebola.png')} />
+                       <ErrorMessage/>
+                        </View>
                 }
                 <View style={styles.inputs}>
                     <TextInput

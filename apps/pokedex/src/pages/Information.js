@@ -1,53 +1,40 @@
-import { Button, Text, View, } from 'react-native';
-import { Link, useParams } from 'react-router-native';
-import { useEffect, useState } from 'react';
 
-// Services 
+import React, { useEffect, useState } from 'react';
+import { Button, Text, View } from 'react-native';
+import { Link, useParams } from 'react-router-native';
 import { getPokemonById } from '../services/pokeapi';
+import  Atributos from 'react';
 
 function Information() {
-    const [pokemon, setPokemon] = useState();
-
+    const [pokemon, setPokemon] = useState(null);
     const { pokemonid } = useParams();
 
     useEffect(() => {
-        // Manera de Hacelo con promesas
-        // getPokemonById(pokemonid)
-        //     .then((pokeInofrmation) => {
-        //         console.log(pokeInofrmation);
-        //     })
-        //     .catch((error) => {
-        //     })
-        //     .finally(() => {
-
-        //     });
-
-        // Async/Await -> Funcion 
-        // const fn = async () => {
-        //     const pokeInformation = await getPokemonById(pokemonid);
-
-        //     console.log(pokeInformation);
-        // };
-        // fn();
-
-        // Async/Await -> IEFI
-        (async () => {
+        const fetchPokemon = async () => {
             try {
                 const pokeInformation = await getPokemonById(pokemonid);
                 setPokemon(pokeInformation);
             } catch (error) {
-                console.error(error);
-            } finally {
-                console.log('end!!!');
+                console.error('Error fetching Pokemon:', error);
             }
-        })();
+        };
 
-    }, []);
+        fetchPokemon();
+    }, [pokemonid]);
+
+    const renderPokemonInfo = () => {
+        if (!pokemon) {
+            return null;
+        }
+
+    
+    };
 
     return (
         <View>
             <Text>Information Page</Text>
-            <Text>{pokemonid}</Text>
+            {pokemon && renderPokemonInfo()}
+            <Atributos pokemon={pokemon}></Atributos>
 
             <Link to='/'>
                 <Text> Go To Home!!!</Text>
