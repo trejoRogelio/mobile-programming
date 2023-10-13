@@ -1,10 +1,10 @@
-import { Button, StyleSheet, Text, View, Image, TextInput, ActivityIndicator } from 'react-native';
+import { Button, ScrollView, View, Image, TextInput, ActivityIndicator } from 'react-native';
 import { Link } from 'react-router-native';
-
-
-// Services
-import { getPokemonByName } from '../services/pokeapi';
 import { useState } from 'react';
+import PokemonNotFoundError from '../components/PokemonNotFoundError'; // Asegúrate de tener la ruta correcta
+import { getPokemonByName } from '../services/pokeapi';
+import { homeStyles } from '../components/styles';
+import PokemonListView from '../components/PokemonListView';
 
 function Home() {
     const [pokemonName, setPokemonName] = useState('');
@@ -12,10 +12,13 @@ function Home() {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(false);
 
-    const handdleChangeText = (namePokemon) => setPokemonName(namePokemon);
+    const handdleChangeText = (namePokemon) => {
+        setPokemonName(namePokemon);
+    }
 
     const handdlePress = async () => {
         setLoading(true);
+        setError(false); // Resetear el estado de error antes de la nueva búsqueda
         try {
             const pokeInformation = await getPokemonByName(pokemonName);
             setPokemon(pokeInformation);
@@ -27,8 +30,8 @@ function Home() {
     };
 
     return (
-        <View>
-            <View style={styles.main}>
+        <ScrollView>
+            <View style={homeStyles.main}>
                 {
                     loading && <ActivityIndicator style={{ width: 'auto', height: 250 }} size='large' color='#E53939' />
                 }
@@ -37,21 +40,23 @@ function Home() {
                         <Link to={`/information/${pokemon.id}`}>
                             <Image
                                 style={{ height: 250, width: 250 }}
-                                source={
-                                    {
-                                        uri: pokemon?.sprites?.front_default
-                                    }
-                                }
+                                source={{
+                                    uri: pokemon?.sprites?.front_default
+                                }}
                             />
                         </Link>
                     )
                 }
                 {
-                    (error || !pokemon && !loading) && <Image
+                    (error || (!loading && !pokemon)) && <Image
                         style={{ height: 250 }}
-                        source={require('../../assets/pokebola.png')} />
+                        source={require('../../assets/pokebola.png')}
+                    />
                 }
-                <View style={styles.inputs}>
+                {
+                    (!loading && !pokemon && error) && <PokemonNotFoundError /> // Muestra el componente solo si no se encontró el Pokémon
+                }
+                <View style={homeStyles.inputs}>
                     <TextInput
                         onChangeText={handdleChangeText}
                         placeholder='Search a Pokemon!'
@@ -62,23 +67,13 @@ function Home() {
                     />
                 </View>
                 <View>
-                    <Text>Filters!!!</Text>
+                    <PokemonListView></PokemonListView>
                 </View>
             </View>
-        </View>
+        </ScrollView>
     );
 }
 
-const styles = StyleSheet.create({
-    main: {
-        flexDirection: 'column',
-        alignItems: 'center',
-    },
-    inputs: {
-        width: 400,
-        flexDirection: 'row',
-        justifyContent: 'space-around'
-    }
-});
+const styles = homeStyles;
 
 export default Home;
