@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { View, Text, Image, TextInput, Button, ActivityIndicator, StyleSheet, ScrollView } from 'react-native';
-import { Link } from 'react-router-native';
+import CustomButton from '../components/CustomButton'; // Importa el componente de botón personalizado
+import HighlightedText from '../components/HighlightedText'; // Importa el componente de texto destacado
+import ListComponent from '../components/ListComponent'; // Importa el componente de lista
+import Footer from '../components/Footer'; // Importa el componente Footer
 
 // Services
 import { getPokemonByName } from '../services/pokeapi';
@@ -10,6 +13,7 @@ const Home = () => {
     const [pokemon, setPokemon] = useState(null);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
+    const [pokemonList, setPokemonList] = useState([]); // Lista de Pokémon
 
     const handleChangeText = (namePokemon) => {
         setPokemonName(namePokemon);
@@ -28,6 +32,10 @@ const Home = () => {
         } finally {
             setLoading(false);
         }
+    };
+
+    const handleListItemClick = (selectedPokemon) => {
+        console.log('Pokemon seleccionado:', selectedPokemon.name);
     };
 
     return (
@@ -91,6 +99,12 @@ const Home = () => {
                 <View>
                     <Text style={styles.filters}>Filters!!!</Text>
                 </View>
+                <CustomButton title="PRESS HERE" onPress={() => console.log('Button clicked')} />
+                <HighlightedText text="AGUAYO HECTOR" />
+                {/*lista */}
+                <ListComponent data={pokemonList} onItemClick={handleListItemClick} />
+                {/*Footer*/}
+                <Footer />
             </View>
         </ScrollView>
     );
