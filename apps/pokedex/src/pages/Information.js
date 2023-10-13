@@ -1,59 +1,72 @@
-import { Button, Text, View, } from 'react-native';
-import { Link, useParams } from 'react-router-native';
-import { useEffect, useState } from 'react';
-
-// Services 
-import { getPokemonById } from '../services/pokeapi';
+import {
+  StyleSheet,
+  Button,
+  Text,
+  View,
+  TouchableHighlight,
+  SafeAreaView,
+  FlatList,
+} from "react-native";
+import { Link, useParams } from "react-router-native";
+import { useEffect, useState } from "react";
+import InfoPokemon from "../components/InfoPokemon";
+import Icon from "react-native-vector-icons/Ionicons";
+import ImageInfo from "../components/ImagesInfo";
+import Abilities from "../components/Abilities";
+import LinkHome from "../components/LinkHome";
+// Services
+import { getPokemonById } from "../services/pokeapi";
 
 function Information() {
-    const [pokemon, setPokemon] = useState();
+  const [pokemon, setPokemon] = useState();
+  const [isLoading, setIsLoading] = useState(true);
 
-    const { pokemonid } = useParams();
+  const { pokemonid } = useParams();
+  useEffect(() => {
+    (async () => {
+      try {
+        const pokeInformation = await getPokemonById(pokemonid);
+        setPokemon(pokeInformation);
+        setIsLoading(false);
+      } catch (error) {
+        console.error(error);
+      } finally {
+        // console.log('end!!!');
+      }
+    })();
+  }, []);
 
-    useEffect(() => {
-        // Manera de Hacelo con promesas
-        // getPokemonById(pokemonid)
-        //     .then((pokeInofrmation) => {
-        //         console.log(pokeInofrmation);
-        //     })
-        //     .catch((error) => {
-        //     })
-        //     .finally(() => {
+  if (isLoading) {
+    return <Text>Loading...</Text>;
+  }
 
-        //     });
+  const data = [pokemon];
 
-        // Async/Await -> Funcion 
-        // const fn = async () => {
-        //     const pokeInformation = await getPokemonById(pokemonid);
+  return (
+    <SafeAreaView>
+      <FlatList
+      style={{paddingBottom:"100", marginBottom:"100" }}
+        data={data}
+        renderItem={({ item }) => (
+          <View style={styles.info}>
+            <InfoPokemon pokeinformation={item} />
 
-        //     console.log(pokeInformation);
-        // };
-        // fn();
-
-        // Async/Await -> IEFI
-        (async () => {
-            try {
-                const pokeInformation = await getPokemonById(pokemonid);
-                setPokemon(pokeInformation);
-            } catch (error) {
-                console.error(error);
-            } finally {
-                console.log('end!!!');
-            }
-        })();
-
-    }, []);
-
-    return (
-        <View>
-            <Text>Information Page</Text>
-            <Text>{pokemonid}</Text>
-
-            <Link to='/'>
-                <Text> Go To Home!!!</Text>
-            </Link>
-        </View>
-    );
+            <ImageInfo pokeinformation={item} />
+            <Abilities pokeinformation={item} />
+            <LinkHome />
+            
+          </View  >
+        )}
+        keyExtractor={(item, index) => index.toString()}
+      />
+    </SafeAreaView>
+  );
 }
+const styles = StyleSheet.create({
+  info: {
+    paddingBottom: 150,
+    backgroundColor: "#FF0000",
+  },
+});
 
 export default Information;
