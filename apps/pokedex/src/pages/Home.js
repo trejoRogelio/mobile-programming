@@ -1,7 +1,7 @@
 import { Button, StyleSheet, Text, View, Image, TextInput, ActivityIndicator } from 'react-native';
 import { Link } from 'react-router-native';
-
-
+import ListaPokemon from '../components/listapokemon'
+import SearchBar from '../components/search';
 // Services
 import { getPokemonByName } from '../services/pokeapi';
 import { useState } from 'react';
@@ -19,6 +19,7 @@ function Home() {
         try {
             const pokeInformation = await getPokemonByName(pokemonName);
             setPokemon(pokeInformation);
+            console.log('Error:', error);
         } catch (error) {
             setError(!!error);
         } finally {
@@ -52,18 +53,18 @@ function Home() {
                         source={require('../../assets/pokebola.png')} />
                 }
                 <View style={styles.inputs}>
-                    <TextInput
-                        onChangeText={handdleChangeText}
-                        placeholder='Search a Pokemon!'
-                    />
-                    <Button
-                        onPress={handdlePress}
-                        title='Search'
-                    />
+                    <SearchBar></SearchBar>
                 </View>
                 <View>
                     <Text>Filters!!!</Text>
                 </View>
+                {
+                error && <Text>Pokemon not found</Text> 
+                }
+            </View>
+            <View>
+                <Text>List of pokemons</Text>
+                <ListaPokemon></ListaPokemon>
             </View>
         </View>
     );

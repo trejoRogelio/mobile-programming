@@ -1,25 +1,41 @@
 const BASE_URL = new URL('https://pokeapi.co/api/v2/');
 
-export async function getPokemonByName(name) {
-    const URI = new URL(`pokemon/${name}`, BASE_URL);
+async function getPokemonData(endpoint) {
+    const URI = new URL(endpoint, BASE_URL);
 
-    const resp = await fetch(URI.href);
+    try {
+        const resp = await fetch(URI.href);
 
-    // Si existe un error! en algun punto de la petición
-    if (!resp.ok)
-        return Promise.reject(resp.json());
+        if (!resp.ok) {
+            return Promise.reject(resp.json());
+        }
 
-    return resp.json();
+        const pokemonData = await resp.json();
+
+        const { id, name: pokemonName, sprites } = pokemonData;
+
+        const pokemonWithAdditionalInfo = {
+            id,
+            name: pokemonName,
+            sprites,
+            ...pokemonData
+        };
+
+        return pokemonWithAdditionalInfo;
+    } catch (error) {
+        console.error('Error fetching Pokémon data:', error);
+        return Promise.reject(error);
+    }
 }
 
-export async function getPokemonById(id) {
-    const URI = new URL(`pokemon/${id}`, BASE_URL);
+export function getPokemonByName(name) {
+    if (!name || name.trim() === '') {
+        return Promise.reject({ error: 'El nombre del Pokémon no puede estar en blanco.' });
+    }
 
-    const resp = await fetch(URI.href);
+    return getPokemonData(`pokemon/${name.toLowerCase()}`);
+}
 
-    // Si existe un error! en algun punto de la petición
-    if (!resp.ok)
-        return Promise.reject(resp.json());
-
-    return resp.json();
+export function getPokemonById(id) {
+    return getPokemonData(`pokemon/${id}`);
 }
