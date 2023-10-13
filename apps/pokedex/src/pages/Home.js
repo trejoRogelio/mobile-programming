@@ -1,8 +1,6 @@
 import { Button, StyleSheet, Text, View, Image, TextInput, ActivityIndicator } from 'react-native';
 import { Link } from 'react-router-native';
-
-
-// Services
+import MensajeError from '../components/MensajeError';
 import { getPokemonByName } from '../services/pokeapi';
 import { useState } from 'react';
 
@@ -11,20 +9,48 @@ function Home() {
     const [pokemon, setPokemon] = useState();
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(false);
+    const [isErrorModalVisible, setIsErrorModalVisible] = useState(false);
+    const [errorMessage, setErrorMessage] = useState('');
 
-    const handdleChangeText = (namePokemon) => setPokemonName(namePokemon);
 
-    const handdlePress = async () => {
+    const handleInputChange = (namePokemon) => {
+        const lowerCaseName = namePokemon.toLowerCase();
+        setPokemonName(lowerCaseName);
+    };
+
+    const handlePress = async () => {
         setLoading(true);
+
+        if (!pokemonName) {
+            setError(true);
+            setErrorMessage('Creo que has olvidado mencionar algún Pokemon');
+            setIsErrorModalVisible(true);
+            setLoading(false);
+            return;
+        }
+
         try {
             const pokeInformation = await getPokemonByName(pokemonName);
-            setPokemon(pokeInformation);
+            if (pokeInformation) {
+                setPokemon(pokeInformation);
+            } else {
+                setError(true);
+                setErrorMessage('No se encontraron registros en la API.');
+                setIsErrorModalVisible(true);
+            }
         } catch (error) {
-            setError(!!error);
+            setError(true);
+            setErrorMessage('Ups no haz escrito bien el nombre del Pokemon');
+            setIsErrorModalVisible(true);
         } finally {
             setLoading(false);
         }
     };
+
+    const handleCloseError = () => {
+        setIsErrorModalVisible(false);
+    };
+
 
     return (
         <View>
@@ -47,24 +73,29 @@ function Home() {
                     )
                 }
                 {
-                    (error || !pokemon && !loading) && <Image
-                        style={{ height: 250 }}
-                        source={require('../../assets/pokebola.png')} />
+                    (error || (!pokemon && !loading)) && <Image
+                        style={styles.imagenS}
+                        source={require('../../assets/pokeball.png')} />
                 }
                 <View style={styles.inputs}>
                     <TextInput
-                        onChangeText={handdleChangeText}
+                        onChangeText={handleInputChange}
                         placeholder='Search a Pokemon!'
                     />
                     <Button
-                        onPress={handdlePress}
+                        onPress={handlePress}
                         title='Search'
                     />
                 </View>
-                <View>
-                    <Text>Filters!!!</Text>
-                </View>
+                <Link to='/lista'>
+                    <Text>Ver lista</Text>
+                </Link>
             </View>
+            <MensajeError
+                mensaje={errorMessage}
+                isVisible={isErrorModalVisible}
+                onClose={handleCloseError}
+            />
         </View>
     );
 }
@@ -78,7 +109,13 @@ const styles = StyleSheet.create({
         width: 400,
         flexDirection: 'row',
         justifyContent: 'space-around'
+    },
+    imagenS: {
+        margin: 10,
+        height: 230,
+        width: 230
     }
 });
+
 
 export default Home;
