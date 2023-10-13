@@ -1,10 +1,12 @@
 import React from 'react';
 import { Button, StyleSheet, Text, View, Image, TextInput, ActivityIndicator, Alert, ScrollView } from 'react-native';
-import { Link } from 'react-router-native';
+
 
 // Services
 import { getPokemonByName } from '../services/pokeapi';
 import { useState } from 'react';
+import Footer from '../components/Footer';
+import Background from '../components/Background';
 
 function Home() {
     const [pokemonName, setPokemonName] = useState('');
@@ -14,6 +16,7 @@ function Home() {
     const handleChangeText = (namePokemon) => setPokemonName(namePokemon);
 
     const handlePress = async () => {
+        
         setLoading(true);
         try {
             if (!pokemonName.trim()) {
@@ -64,6 +67,8 @@ function Home() {
 
     return (
         <ScrollView contentContainerStyle={styles.scrollContainer}>
+            <Background/>
+
             <View style={styles.main}>
                 {
                     loading && <ActivityIndicator style={{ width: 'auto', height: 250 }} size='large' color='#E53939' />
@@ -97,7 +102,9 @@ function Home() {
                         title='Buscar'
                     />
                 </View>
+                
             </View>
+            <Footer/>
         </ScrollView>
     );
 }
