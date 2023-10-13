@@ -66,7 +66,9 @@ function Home() {
                     />
                 </View>
                 <View>
-                    <Text>Filters!!!</Text>
+                    <Link to='/random-pokemon'>
+                        <Text > RandomPokemons!!</Text>
+                    </Link>
                 </View>
             </View>
         </View>
