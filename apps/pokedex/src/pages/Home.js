@@ -1,5 +1,6 @@
 import { Button, StyleSheet, Text, View, Image, TextInput, ActivityIndicator } from 'react-native';
 import { Link } from 'react-router-native';
+import MensajeError from '../components/MensajeError';
 
 
 // Services
@@ -7,20 +8,27 @@ import { getPokemonByName } from '../services/pokeapi';
 import { useState } from 'react';
 
 function Home() {
+
     const [pokemonName, setPokemonName] = useState('');
     const [pokemon, setPokemon] = useState();
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(false);
 
-    const handdleChangeText = (namePokemon) => setPokemonName(namePokemon);
+    const handdleChangeText = (namePokemon) => { setPokemonName(namePokemon) };
+    const toLowerCase = (text) => {
+        return text.toLowerCase();
+    };
+
 
     const handdlePress = async () => {
         setLoading(true);
         try {
-            const pokeInformation = await getPokemonByName(pokemonName);
+            const lowercasePokemonName = toLowerCase(pokemonName)
+            const pokeInformation = await getPokemonByName(lowercasePokemonName);
             setPokemon(pokeInformation);
+            
         } catch (error) {
-            setError(!!error);
+            setError(true);
         } finally {
             setLoading(false);
         }
@@ -29,28 +37,48 @@ function Home() {
     return (
         <View>
             <View style={styles.main}>
+
+                {/*Esto es el loading */}
                 {
                     loading && <ActivityIndicator style={{ width: 'auto', height: 250 }} size='large' color='#E53939' />
                 }
+
+
+                {/*Esto es cuando encuentra a un pokemon y aparece la imagen del pokemon */}
                 {
                     !loading && pokemon && (
-                        <Link to={`/information/${pokemon.id}`}>
-                            <Image
-                                style={{ height: 250, width: 250 }}
-                                source={
-                                    {
-                                        uri: pokemon?.sprites?.front_default
-                                    }
-                                }
-                            />
-                        </Link>
+                        <>
+                            <Link to={`/information/${pokemon.id}`}>
+                                <View>
+                                    <Image
+                                        style={{ height: 350, width: 350 }}
+                                        source={
+                                            {
+                                                uri: pokemon?.sprites?.other?.home?.front_default
+                                            }
+                                        }
+                                    />
+                                    <Text style={{fontSize:20}}>Vamo a ver la info de pokemon</Text>
+                                </View>
+                            </Link>
+
+                        </>
+
                     )
                 }
-                {
-                    (error || !pokemon && !loading) && <Image
-                        style={{ height: 250 }}
-                        source={require('../../assets/pokebola.png')} />
-                }
+
+
+                {/* Mostrar la Pokébola al inicio */}
+                {(!error && !pokemon && !loading) && (
+                    <Image style={{ height: 250 }} source={require('../../assets/pokebola.png')} />
+                )}
+
+
+                {/* Mostrar el mensaje de error */}
+                {error && <MensajeError />}
+
+
+                {/* Esta es la parte de buscar mas el botón */}
                 <View style={styles.inputs}>
                     <TextInput
                         onChangeText={handdleChangeText}
@@ -61,11 +89,8 @@ function Home() {
                         title='Search'
                     />
                 </View>
-                <View>
-                    <Text>Filters!!!</Text>
-                </View>
             </View>
-        </View>
+        </View >
     );
 }
 
