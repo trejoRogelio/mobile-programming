@@ -5,7 +5,7 @@ import Constants from 'expo-constants';
 function Navbar() {
     return (
         <View style={styles.navbar}>
-            <Text style={styles.navbarText}>PokéDex ISC</Text>
+            <Text style={styles.navbarText}>Pokedex bien HD</Text>
         </View>
     );
 }
@@ -20,8 +20,10 @@ const styles = StyleSheet.create({
         color: 'white',
         fontSize: 30,
         fontStyle: 'italic',
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        textAlign: 'center',
     }
+    
 });
 
 export default Navbar;
