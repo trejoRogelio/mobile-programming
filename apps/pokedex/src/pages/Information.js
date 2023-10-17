@@ -1,59 +1,68 @@
-import { Button, Text, View, } from 'react-native';
+import { Button, Text, View } from 'react-native';
 import { Link, useParams } from 'react-router-native';
 import { useEffect, useState } from 'react';
 
-// Services 
+// Services
 import { getPokemonById } from '../services/pokeapi';
 
 function Information() {
-    const [pokemon, setPokemon] = useState();
+  const [pokemon, setPokemon] = useState();
+  const { pokemonid } = useParams();
 
-    const { pokemonid } = useParams();
+  useEffect(() => {
+    const fetchPokemonDetails = async () => {
+      try {
+        const pokeInformation = await getPokemonById(pokemonid);
+        setPokemon(pokeInformation);
+      } catch (error) {
+        console.error(error);
+      }
+    };
 
-    useEffect(() => {
-        // Manera de Hacelo con promesas
-        // getPokemonById(pokemonid)
-        //     .then((pokeInofrmation) => {
-        //         console.log(pokeInofrmation);
-        //     })
-        //     .catch((error) => {
-        //     })
-        //     .finally(() => {
+    fetchPokemonDetails();
+  }, [pokemonid]);
 
-        //     });
-
-        // Async/Await -> Funcion 
-        // const fn = async () => {
-        //     const pokeInformation = await getPokemonById(pokemonid);
-
-        //     console.log(pokeInformation);
-        // };
-        // fn();
-
-        // Async/Await -> IEFI
-        (async () => {
-            try {
-                const pokeInformation = await getPokemonById(pokemonid);
-                setPokemon(pokeInformation);
-            } catch (error) {
-                console.error(error);
-            } finally {
-                console.log('end!!!');
-            }
-        })();
-
-    }, []);
-
-    return (
+  return (
+    <View>
+      <Text>Information Page</Text>
+      <Text>{pokemonid}</Text>
+      {pokemon && (
         <View>
-            <Text>Information Page</Text>
-            <Text>{pokemonid}</Text>
-
-            <Link to='/'>
-                <Text> Go To Home!!!</Text>
-            </Link>
+          <Text>Name: {pokemon.name}</Text>
+          <Text>Height: {pokemon.height}</Text>
+          <Text>Weight: {pokemon.weight}</Text>
+          <Text>Base Experience: {pokemon.base_experience}</Text>
+          <Text>Abilities:</Text>
+          <View>
+            {pokemon.abilities.map((ability, index) => (
+              <Text key={index}>{ability.ability.name}</Text>
+            ))}
+          </View>
+          <Text>Types:</Text>
+          <View>
+            {pokemon.types.map((type, index) => (
+              <Text key={index}>{type.type.name}</Text>
+            ))}
+          </View>
+          <Text>Stats:</Text>
+          <View>
+            {pokemon.stats.map((stat, index) => (
+              <Text key={index}>{stat.stat.name}: {stat.base_stat}</Text>
+            ))}
+          </View>
+          <Text>Moves:</Text>
+          <View>
+            {pokemon.moves.slice(0, 11).map((move, index) => (
+              <Text key={index}>{move.move.name}</Text>
+            ))}
+          </View>
         </View>
-    );
+      )}
+      <Link to='/'>
+        <Text>Go To Home!!!</Text>
+      </Link>
+    </View>
+  );
 }
 
 export default Information;
