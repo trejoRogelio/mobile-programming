@@ -1,59 +1,61 @@
-import { Button, Text, View, } from 'react-native';
-import { Link, useParams } from 'react-router-native';
-import { useEffect, useState } from 'react';
-
-// Services 
+import React, { useEffect, useState } from 'react';
+import { Text, View } from 'react-native';
+import { useParams, Link } from 'react-router-native';
 import { getPokemonById } from '../services/pokeapi';
 
 function Information() {
-    const [pokemon, setPokemon] = useState();
+  const [pokemon, setPokemon] = useState(null);
+  const { pokemonid } = useParams();
 
-    const { pokemonid } = useParams();
+  useEffect(() => {
+    const fetchPokemonData = async () => {
+      try {
+        const pokeInformation = await getPokemonById(pokemonid);
+        setPokemon(pokeInformation);
+      } catch (error) {
+        console.error(error);
+      }
+    };
 
-    useEffect(() => {
-        // Manera de Hacelo con promesas
-        // getPokemonById(pokemonid)
-        //     .then((pokeInofrmation) => {
-        //         console.log(pokeInofrmation);
-        //     })
-        //     .catch((error) => {
-        //     })
-        //     .finally(() => {
+    fetchPokemonData();
+  }, [pokemonid]);
 
-        //     });
-
-        // Async/Await -> Funcion 
-        // const fn = async () => {
-        //     const pokeInformation = await getPokemonById(pokemonid);
-
-        //     console.log(pokeInformation);
-        // };
-        // fn();
-
-        // Async/Await -> IEFI
-        (async () => {
-            try {
-                const pokeInformation = await getPokemonById(pokemonid);
-                setPokemon(pokeInformation);
-            } catch (error) {
-                console.error(error);
-            } finally {
-                console.log('end!!!');
-            }
-        })();
-
-    }, []);
-
-    return (
+  return (
+    <View>
+      <Text></Text>
+      {pokemon && (
         <View>
-            <Text>Information Page</Text>
-            <Text>{pokemonid}</Text>
+          <Text>Name: {pokemon.name}</Text>
+          <Text>Height: {pokemon.height}</Text>
+          <Text>Weight: {pokemon.weight}</Text>
 
-            <Link to='/'>
-                <Text> Go To Home!!!</Text>
-            </Link>
+          {pokemon.types && (
+            <Text>Types: {pokemon.types.map((type) => type.type.name).join(', ')}</Text>
+          )}
+          {pokemon.abilities && (
+            <Text>Abilities: {pokemon.abilities.map((ability) => ability.ability.name).join(', ')}</Text>
+          )}
+
+          {/* Additional attributes */}
+          <Text>Base Experience: {pokemon.base_experience}</Text>
+          <Text>Order: {pokemon.order}</Text>
+          <Text>Is Default: {pokemon.is_default.toString()}</Text>
+          <Text>Species URL: {pokemon.species.url}</Text>
+
+          {/* Add more attributes based on the API response */}
+          {pokemon.stats && (
+            <Text>HP: {pokemon.stats.find(stat => stat.stat.name === 'hp').base_stat}</Text>
+            // Add more stats or attributes as needed
+          )}
+
         </View>
-    );
+      )}
+
+      <Link to='/'>
+        <Text>Regresar a la pagina principal</Text>
+      </Link>
+    </View>
+  );
 }
 
 export default Information;
