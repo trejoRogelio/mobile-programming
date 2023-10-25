@@ -1,41 +1,53 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Image, Alert, Button } from 'react-native';
-import * as ImagePicker from 'expo-image-picker';
+import { StyleSheet, Text, View, Image, Button, Alert } from 'react-native';
 import { useState } from 'react';
 
+import * as ImagePiker from 'expo-image-picker';
+
 export default function App() {
-  const HasbullaImg =  'https://cdn.milenio.com/uploads/media/2022/10/13/hasbulla-instagram.jpg';
-  const [imageUri, setImageUri] = useState(HasbullaImg);
-  const handlePress = async () => {
-    const result = await ImagePicker.launchImageLibraryAsync();
-    if (result.canceled) {
-      Alert.alert('Dennied permission');
-      return;
+    const [imageUri, setImageUri] = useState("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTK2nG24AYDm6FOEC7jIfgubO96GbRso2Xshu1f8abSYQ&s");
+
+
+    const handdlePress = async () => {
+        const permitions = await ImagePiker.requestCameraPermissionsAsync();
+
+        if (!permitions.granted) {
+            Alert.alert("This is bloquet!!!!!!!")
+        }
+
+        const result = await ImagePiker.launchCameraAsync()
+        const [camera] = result.assets;
+
+        setImageUri(camera)
     }
-    setImageUri(result.assets[0].uri)
-  };
-  return (
-    <View style={styles.container}>
-      <Text>Select an image</Text>
-      <Image
-        width={200}
-        height={200}
-        style={{ margin: 20 }}
-        source={{
-          uri: imageUri
-        }}
-      />
-      <Button title="Open gallery" onPress={handlePress} />
-      <StatusBar style="auto" />
-    </View>
-  );
+
+    return (
+        <View style={styles.container}>
+            <View>
+                <Text>Select an image</Text>
+                <Image
+                    style={{ width: 250, height: 250 }}
+                    source={{
+                        uri: imageUri
+                    }}
+                />
+                <Button
+                    title='Click ME!!!'
+                    onPress={handdlePress}
+                />
+            </View>
+
+
+            <StatusBar style="auto" />
+        </View>
+    );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+    container: {
+        flex: 1,
+        backgroundColor: '#fff',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
 });
