@@ -1,7 +1,7 @@
 {
-  "name": "todo-list-app",
+  "name": "ionic-app-base",
   "private": true,
-  "version": "0.0.1",
+  "version": "0.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -12,8 +12,6 @@
     "lint": "eslint"
   },
   "dependencies": {
-    "@capacitor/android": "^5.5.1",
-    "@capacitor/core": "5.5.1",
     "@ionic/react": "^7.0.0",
     "@ionic/react-router": "^7.0.0",
     "@types/react-router": "^5.1.20",
@@ -22,11 +20,9 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router": "^5.3.4",
-    "react-router-dom": "^5.3.4",
-    "terser": "^5.24.0"
+    "react-router-dom": "^5.3.4"
   },
   "devDependencies": {
-    "@capacitor/cli": "5.5.1",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^14.0.0",
     "@testing-library/user-event": "^14.4.3",
@@ -41,6 +37,5 @@
     "typescript": "^5.1.6",
     "vite": "^4.3.9",
     "vitest": "^0.32.2"
-  },
-  "description": "An Ionic project"
+  }
 }
