@@ -21,18 +21,33 @@ import '@ionic/react/css/display.css';
 
 /* Theme variables */
 import './theme/variables.css';
+import TakePictureTab from './pages/tabs/TakePictureTab';
+import GalleryTab from './pages/tabs/GalleryTab';
+import { usePhotoGallery } from './hooks/UserPhotoGallery';
 
 setupIonicReact();
+
+const { photos, takePhoto } = usePhotoGallery();
+
+const TakePhotoHandler = () => {
+  takePhoto();
+};
 
 const App: React.FC = () => (
   <IonApp>
     <IonReactRouter>
       <IonRouterOutlet>
-        <Route exact path="/home">
+        <Route exact path='/home'>
           <Home />
         </Route>
-        <Route exact path="/">
-          <Redirect to="/home" />
+        <Route exact path='/'>
+          <Redirect to='/home' />
+        </Route>
+        <Route path='/takepicture'>
+          <TakePictureTab photos={photos} takePhoto={TakePhotoHandler} />
+        </Route>
+        <Route path='/gallery'>
+          <GalleryTab />
         </Route>
       </IonRouterOutlet>
     </IonReactRouter>
