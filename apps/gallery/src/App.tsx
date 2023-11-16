@@ -38,7 +38,7 @@ import { usePhotoGallery } from './hooks/usePhotoGallery';
 setupIonicReact();
 
 const App: React.FC = () => {
-  const { takePhoto, photos, loadingPh } = usePhotoGallery();
+  const { takePhoto, photos, loadingPh, deletePhoto } = usePhotoGallery();
   return (
     <IonApp>
       <IonReactRouter>
@@ -51,7 +51,12 @@ const App: React.FC = () => {
               <Tab2 takePhoto={takePhoto} photos={photos} />
             </Route>
             <Route path='/tab3'>
-              <Tab3 photos={photos} loadingPh={loadingPh} />
+              <Tab3
+                photos={photos}
+                loadingPh={loadingPh}
+                deletePhoto={deletePhoto}
+                takePhoto={takePhoto}
+              />
             </Route>
             <Route exact path='/'>
               <Redirect to='/tab1' />

@@ -4,27 +4,22 @@ import {
   IonContent,
   IonFab,
   IonFabButton,
-  IonGrid,
   IonHeader,
   IonIcon,
   IonImg,
   IonPage,
-  IonRow,
   IonTitle,
-  IonToast,
   IonToolbar,
 } from '@ionic/react';
 import './Tab2.css';
-import { usePhotoGallery } from '../hooks/usePhotoGallery';
 import { TextBoxCustom } from '../components/TextBoxCustom';
-import { useState } from 'react';
 import { UserPhoto } from '../types';
-type Tab2Props = { takePhoto: () => Promise<void>; photos?: UserPhoto[] };
+type Tab2Props = {
+  takePhoto: (photo: UserPhoto | undefined) => Promise<void>;
+  photos?: UserPhoto[];
+};
 
-const Tab2 = ({ takePhoto, photos }: Tab2Props) => {
-  const [toastMessage, setToastMessage] = useState<string>('');
-  const [showToast, setShowToast] = useState<boolean>(false);
-
+const Tab2 = ({ takePhoto }: Tab2Props) => {
   return (
     <IonPage>
       <IonHeader>
@@ -42,7 +37,7 @@ const Tab2 = ({ takePhoto, photos }: Tab2Props) => {
           src='https://w0.peakpx.com/wallpaper/631/362/HD-wallpaper-cameras-dslr-godox-sony-dark-black-camera-indoor.jpg'
         />
         <IonFab vertical='bottom' horizontal='center' slot='fixed'>
-          <IonFabButton onClick={() => takePhoto()}>
+          <IonFabButton onClick={() => takePhoto(undefined)}>
             <IonIcon icon={camera}></IonIcon>
           </IonFabButton>
         </IonFab>

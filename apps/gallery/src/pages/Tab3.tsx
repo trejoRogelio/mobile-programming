@@ -1,7 +1,5 @@
 import {
-  IonCard,
-  IonCardHeader,
-  IonCardSubtitle,
+  IonActionSheet,
   IonCol,
   IonContent,
   IonGrid,
@@ -10,20 +8,24 @@ import {
   IonLoading,
   IonPage,
   IonRow,
-  IonText,
   IonTitle,
   IonToolbar,
 } from '@ionic/react';
 import './Tab3.css';
-import { usePhotoGallery } from '../hooks/usePhotoGallery';
 import { NotFoundPage } from '../components/NotFoundPage';
-import { useEffect, useMemo } from 'react';
+import { trash, close, pencil } from 'ionicons/icons';
 import { useState } from 'react';
 import { UserPhoto } from '../types';
 
-type Tab3Props = { photos: UserPhoto[]; loadingPh: boolean };
+type Tab3Props = {
+  photos: UserPhoto[];
+  loadingPh: boolean;
+  deletePhoto: (photo: UserPhoto) => void;
+  takePhoto: (photo: UserPhoto) => Promise<void>;
+};
 
-const Tab3 = ({ photos, loadingPh }: Tab3Props) => {
+const Tab3 = ({ photos, loadingPh, deletePhoto, takePhoto }: Tab3Props) => {
+  const [photoToDelete, setPhotoToDelete] = useState<UserPhoto>();
   return (
     <IonPage>
       <IonHeader>
@@ -54,10 +56,46 @@ const Tab3 = ({ photos, loadingPh }: Tab3Props) => {
                     alignItems: 'center',
                     border: '1px solid #50a8ff',
                   }}>
-                  <IonImg src={photo.webviewPath} />
+                  <IonImg
+                    onClick={() => setPhotoToDelete(photo)}
+                    src={photo.webviewPath}
+                  />
                   <p>Id: {photo.id}</p>
                 </IonCol>
               ))}
+              <IonActionSheet
+                isOpen={!!photoToDelete}
+                buttons={[
+                  {
+                    text: 'Delete',
+                    role: 'destructive',
+                    icon: trash,
+                    handler: () => {
+                      if (photoToDelete) {
+                        deletePhoto(photoToDelete);
+                        setPhotoToDelete(undefined);
+                      }
+                    },
+                  },
+                  {
+                    text: 'Edit',
+                    role: 'update',
+                    icon: pencil,
+                    handler: () => {
+                      if (photoToDelete) {
+                        takePhoto(photoToDelete);
+                        setPhotoToDelete(undefined);
+                      }
+                    },
+                  },
+                  {
+                    text: 'Cancel',
+                    icon: close,
+                    role: 'cancel',
+                  },
+                ]}
+                onDidDismiss={() => setPhotoToDelete(undefined)}
+              />
             </IonRow>
           </IonGrid>
         )}

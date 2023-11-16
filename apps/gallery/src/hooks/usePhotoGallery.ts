@@ -101,22 +101,53 @@ export function usePhotoGallery() {
     };
     loadSaved();
   }, []);
-  const takePhoto = async () => {
+  const takePhoto = async (photoNew?: UserPhoto) => {
     const photo = await Camera.getPhoto({
       resultType: CameraResultType.Uri,
       source: CameraSource.Camera,
       quality: 100,
     });
     const fileName = Date.now() + '.jpeg';
-    const savedFileImage = await savePicture(photo, fileName, generateId());
-    const newPhotos = [savedFileImage, ...photos];
+    const savedFileImage = await savePicture(
+      photo,
+      fileName,
+      photoNew ? photoNew.id : generateId(),
+    );
+
+    let newPhotos = photos.map(photoItem =>
+      photoItem.id === (photoNew ? photoNew.id : null)
+        ? savedFileImage
+        : photoItem,
+    );
+
+    if (!photoNew) {
+      // Si idEdit no existe, agrega la nueva foto al array
+      newPhotos = [savedFileImage, ...newPhotos.filter(Boolean)];
+    }
     setPhotos(newPhotos);
     Preferences.set({ key: PHOTO_STORAGE, value: JSON.stringify(newPhotos) });
+  };
+
+  const deletePhoto = async (photo: UserPhoto) => {
+    // Remove this photo from the Photos reference data array
+    const newPhotos = photos.filter(p => p.filepath !== photo.filepath);
+
+    // Update photos array cache by overwriting the existing photo array
+    Preferences.set({ key: PHOTO_STORAGE, value: JSON.stringify(newPhotos) });
+
+    // delete photo file from filesystem
+    const filename = photo.filepath.substr(photo.filepath.lastIndexOf('/') + 1);
+    await Filesystem.deleteFile({
+      path: filename,
+      directory: Directory.Data,
+    });
+    setPhotos(newPhotos);
   };
 
   return {
     loadingPh,
     photos,
     takePhoto,
+    deletePhoto,
   };
 }
