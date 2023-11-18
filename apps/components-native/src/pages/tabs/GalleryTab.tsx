@@ -33,7 +33,9 @@ const GalleryTab = ({
         <IonPage>
             <IonHeader>
                 <IonToolbar>
-                    <IonTitle>GALLERY TAB</IonTitle>
+                    <IonTitle class="ion-text-center">Gallery tab</IonTitle>
+                </IonToolbar>
+                <IonToolbar class="ion-text-center">
                     <Link to="/">
                         <IonButton>Go back</IonButton>
                     </Link>
@@ -49,23 +51,25 @@ const GalleryTab = ({
                 <IonGrid>
                     <IonRow>
                         {photos.map((photo: UserPhoto) => (
-                            <IonCard key={photo.filepath}>
-                                <IonCardContent>
-                                    <IonCardTitle>
-                                        {photo.filepath}
-                                    </IonCardTitle>
-                                    <IonCol size="6" key={photo.filepath}>
-                                        <IonImg src={photo.webviewPath} />
-                                    </IonCol>
-                                    <IonButton
-                                        onClick={() => {
-                                            deletePhoto(photo.filepath);
-                                        }}
-                                    >
-                                        <IonIcon icon={trashBin} />
-                                    </IonButton>
-                                </IonCardContent>
-                            </IonCard>
+                            <IonCol>
+                                <IonCard key={photo.filepath}>
+                                    <IonCardContent>
+                                        <IonCardTitle>
+                                            {photo.filepath}
+                                        </IonCardTitle>
+                                        <IonCol size="6" key={photo.filepath}>
+                                            <IonImg src={photo.webviewPath} />
+                                        </IonCol>
+                                        <IonButton
+                                            onClick={() => {
+                                                deletePhoto(photo.filepath);
+                                            }}
+                                        >
+                                            <IonIcon icon={trashBin} />
+                                        </IonButton>
+                                    </IonCardContent>
+                                </IonCard>
+                            </IonCol>
                         ))}
                     </IonRow>
                 </IonGrid>

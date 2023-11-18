@@ -19,13 +19,14 @@ const Home: React.FC = () => {
     <IonPage>
       <IonHeader>
         <IonToolbar>
-          <IonTitle>HOME</IonTitle>
+          <IonTitle class='ion-text-center'>HOME</IonTitle>
         </IonToolbar>
       </IonHeader>
-      <IonContent fullscreen>
+      <IonContent fullscreen class='ion-text-center'>
         <IonHeader>
-          <IonTitle size='large'>Select an option</IonTitle>
+          <IonTitle  class='ion-text-center ion-padding'>Select an option</IonTitle>
         </IonHeader>
+
 
         <Link to='/takepicture'>
           <IonButton>Take Picture</IonButton>
