@@ -11,9 +11,7 @@ import {
 } from '@ionic/react';
 import './Home.css';
 import { Link } from 'react-router-dom';
-import { images, square, triangle } from 'ionicons/icons';
-
-
+import { images } from 'ionicons/icons';
 
 
 const Home: React.FC = () => {

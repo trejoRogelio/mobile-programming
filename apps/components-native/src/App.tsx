@@ -23,35 +23,68 @@ import '@ionic/react/css/display.css';
 import './theme/variables.css';
 import TakePictureTab from './pages/tabs/TakePictureTab';
 import GalleryTab from './pages/tabs/GalleryTab';
-import { usePhotoGallery } from './hooks/UserPhotoGallery';
+import {
+    PHOTO_STORAGE,
+    UserPhoto,
+    usePhotoGallery,
+} from './hooks/UserPhotoGallery';
+import { useEffect, useState } from 'react';
+import { Preferences } from '@capacitor/preferences';
 
 setupIonicReact();
 
-const { photos, takePhoto } = usePhotoGallery();
+const App: React.FC = () => {
+    const { photos: savedPhotos, takePhoto } = usePhotoGallery();
 
-const TakePhotoHandler = () => {
-  takePhoto();
+    // Photos
+    const [photos, setPhotos] = useState<UserPhoto[]>();
+
+    useEffect(() => {
+        setPhotos(savedPhotos);
+    }, [savedPhotos]);
+
+    const TakePhotoHandler = () => {
+        takePhoto();
+    };
+
+    const DeletePhotoByFilePath = (filepath: string) => {
+        const arrPhotos = [...photos!];
+        const photo = photos!.find(
+            (photo: UserPhoto) => photo.filepath == filepath
+        );
+        const index = arrPhotos.indexOf(photo!, 0);
+        if (index > -1) {
+            arrPhotos.splice(index, 1);
+            setPhotos(arrPhotos);
+            Preferences.set({
+                key: PHOTO_STORAGE,
+                value: JSON.stringify(arrPhotos),
+            });
+        }
+    };
+
+    return (
+        <IonApp>
+            <IonReactRouter>
+                <IonRouterOutlet>
+                    <Route exact path="/home">
+                        <Home />
+                    </Route>
+                    <Route exact path="/">
+                        <Redirect to="/home" />
+                    </Route>
+                    <Route path="/takepicture">
+                        <TakePictureTab takePhoto={TakePhotoHandler} />
+                    </Route>
+                    <Route path="/gallery">
+                        <GalleryTab
+                            photos={photos}
+                            deletePhoto={DeletePhotoByFilePath}
+                        />
+                    </Route>
+                </IonRouterOutlet>
+            </IonReactRouter>
+        </IonApp>
+    );
 };
-
-const App: React.FC = () => (
-  <IonApp>
-    <IonReactRouter>
-      <IonRouterOutlet>
-        <Route exact path='/home'>
-          <Home />
-        </Route>
-        <Route exact path='/'>
-          <Redirect to='/home' />
-        </Route>
-        <Route path='/takepicture'>
-          <TakePictureTab photos={photos} takePhoto={TakePhotoHandler} />
-        </Route>
-        <Route path='/gallery'>
-          <GalleryTab />
-        </Route>
-      </IonRouterOutlet>
-    </IonReactRouter>
-  </IonApp>
-);
-
 export default App;
