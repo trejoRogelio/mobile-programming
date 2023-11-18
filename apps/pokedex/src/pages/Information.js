@@ -1,59 +1,56 @@
-import { Button, Text, View, } from 'react-native';
-import { Link, useParams } from 'react-router-native';
-import { useEffect, useState } from 'react';
+import { Button, Text, TextInput, View, Image } from 'react-native';
+import { Link } from 'react-router-native';
+import { GetPokemonByName } from '../pokeapi';
+import { styles } from '../../App';
+import PokemonData from '../components/PokemonData';
+import { useState } from 'react';
 
-// Services 
-import { getPokemonById } from '../services/pokeapi';
+const Information = () => {
+  const [pokemonInput, setPokemonInput] = useState('');
+  const InputChangeHandler = (e) => {
+    setPokemonInput(e);
+  };
 
-function Information() {
-    const [pokemon, setPokemon] = useState();
+  const [pokemonName, setPokemonName] = useState('');
+  const SetPokemonNameSearch = () => {
+    setPokemonName(pokemonInput);
+  };
 
-    const { pokemonid } = useParams();
+  const { data, loading, error } = GetPokemonByName(pokemonName);
+  return (
+    <View style={styles.container}>
+      <Text style={styles.txt_title}>Pokemon information</Text>
+      <Image
+        style={styles.img}
+        source={
+          data == null
+            ? loading
+              ? require('../../assets/images/loadingsnail.gif')
+              : require('../../assets/images/pokebola.png')
+            : { uri: data.sprites.other.home.front_default }
+        }
+      />
+      <TextInput
+        placeholder='Pokemon name'
+        style={styles.input_pokesearch}
+        onChangeText={InputChangeHandler}
+        onSubmitEditing={() => {
+          SetPokemonNameSearch();
+        }}
+      ></TextInput>
+      <Button
+        title='Search Pokemon'
+        onPress={() => {
+          SetPokemonNameSearch();
+        }}
+      ></Button>
 
-    useEffect(() => {
-        // Manera de Hacelo con promesas
-        // getPokemonById(pokemonid)
-        //     .then((pokeInofrmation) => {
-        //         console.log(pokeInofrmation);
-        //     })
-        //     .catch((error) => {
-        //     })
-        //     .finally(() => {
-
-        //     });
-
-        // Async/Await -> Funcion 
-        // const fn = async () => {
-        //     const pokeInformation = await getPokemonById(pokemonid);
-
-        //     console.log(pokeInformation);
-        // };
-        // fn();
-
-        // Async/Await -> IEFI
-        (async () => {
-            try {
-                const pokeInformation = await getPokemonById(pokemonid);
-                setPokemon(pokeInformation);
-            } catch (error) {
-                console.error(error);
-            } finally {
-                console.log('end!!!');
-            }
-        })();
-
-    }, []);
-
-    return (
-        <View>
-            <Text>Information Page</Text>
-            <Text>{pokemonid}</Text>
-
-            <Link to='/'>
-                <Text> Go To Home!!!</Text>
-            </Link>
-        </View>
-    );
-}
+      <PokemonData data={data} loading={loading} error={error} />
+      <Link to='/' style={styles.btn_custom}>
+        <Text style={styles.txt_white}>Return to home</Text>
+      </Link>
+    </View>
+  );
+};
 
 export default Information;
