@@ -1,0 +1,12 @@
+{
+    "appId": "io.ionic.demo.pg.react",
+    "appName": "React Photo Gallery",
+    "webDir": "build",
+    "plugins": {
+      "Camera": {
+        "allowExternalStorage": true,
+        "allowFileAccess": true
+      }
+    },
+    "cordova": {}
+  }

@@ -1,0 +1,11 @@
+ion-content {
+    --ion-background-color: #ffe6e6; /* Fondo más claro */
+  }
+  
+  ion-img {
+    --ion-background-color: #ff99cc; 
+  }
+  
+  ion-action-sheet-button {
+    --ion-color: #ff0066; 
+  }
