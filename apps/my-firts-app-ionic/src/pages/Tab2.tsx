@@ -1,62 +1,43 @@
+
 import React, { useState } from 'react';
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonFab, IonFabButton, IonIcon, IonGrid, IonRow, IonCol, IonImg, IonActionSheet } from '@ionic/react';
-import { camera, trash, close } from 'ionicons/icons';
-import { usePhotoGallery, UserPhoto } from '../hooks/usePhotoGallery';
+import { IonContent, IonPage, IonHeader, IonToolbar, IonTitle, IonFab, IonFabButton } from '@ionic/react';
+import CameraIcon from '../components/CameraIcon';
+import MsjPop from '../components/MsjPop';
+import { usePhotoGallery } from '../hooks/usePhotoGallery';
+import './tabs.css';
 
 const Tab2: React.FC = () => {
-  const { deletePhoto, photos, takePhoto } = usePhotoGallery();
-  const [photoToDelete, setPhotoToDelete] = useState<UserPhoto>();
+  const { takePhoto } = usePhotoGallery();
+  const [showPopup, setShowPopup] = useState(false);
+
+  const handleTakePhoto = () => {
+    takePhoto();
+    setShowPopup(true);
+  };
+
+  const handleClosePopup = () => {
+    setShowPopup(false);
+  };
 
   return (
     <IonPage>
       <IonHeader>
         <IonToolbar>
-          <IonTitle>Photo Gallery</IonTitle>
+          <IonTitle>Cámara</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent>
-      <IonHeader collapse="condense">
-          <IonToolbar>
-            <IonTitle size="large">Photo Gallery</IonTitle>
-          </IonToolbar>
-        </IonHeader>
-        <IonGrid>
-          <IonRow>
-            {photos.map((photo, index) => (
-              <IonCol size="6" key={index}>
-                <IonImg onClick={() => setPhotoToDelete(photo)} src={photo.webviewPath} />
-              </IonCol>
-            ))}
-          </IonRow>
-        </IonGrid>
-
         <IonFab vertical="bottom" horizontal="center" slot="fixed">
-          <IonFabButton onClick={() => takePhoto()}>
-            <IonIcon icon={camera}></IonIcon>
+          <IonFabButton onClick={handleTakePhoto}>
+
+            <CameraIcon onClick={takePhoto} />
           </IonFabButton>
         </IonFab>
-
-        <IonActionSheet
-          isOpen={!!photoToDelete}
-          buttons={[{
-            text: 'Delete',
-            role: 'destructive',
-            icon: trash,
-            handler: () => {
-              if (photoToDelete) {
-                deletePhoto(photoToDelete);
-                setPhotoToDelete(undefined);
-              }
-            }
-          }, {
-            text: 'Cancel',
-            icon: close,
-            role: 'cancel'
-          }]}
-          onDidDismiss={() => setPhotoToDelete(undefined)}
+        <MsjPop
+          isOpen={showPopup}
+          message="Foto tomada con éxito"
+          onClose={handleClosePopup}
         />
-
-
       </IonContent>
     </IonPage>
   );
