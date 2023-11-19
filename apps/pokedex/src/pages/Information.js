@@ -1,59 +1,71 @@
-import { Button, Text, View, } from 'react-native';
-import { Link, useParams } from 'react-router-native';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { Text, View, Image, StyleSheet } from 'react-native';
 
-// Services 
-import { getPokemonById } from '../services/pokeapi';
-
-function Information() {
-    const [pokemon, setPokemon] = useState();
-
-    const { pokemonid } = useParams();
+function Information({ route }) {
+    const { pokemonData } = route.params;
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(null);
 
     useEffect(() => {
-        // Manera de Hacelo con promesas
-        // getPokemonById(pokemonid)
-        //     .then((pokeInofrmation) => {
-        //         console.log(pokeInofrmation);
-        //     })
-        //     .catch((error) => {
-        //     })
-        //     .finally(() => {
+        if (!pokemonData) {
+            // Manejar el caso en el que no se proporcionan datos del Pokémon.
+            setError('No se encontraron datos del Pokémon.');
+            setLoading(false);
+        } else {
+            setLoading(true);
+            setError(null);
 
-        //     });
+            // Realiza operaciones con los datos del Pokémon, si es necesario.
 
-        // Async/Await -> Funcion 
-        // const fn = async () => {
-        //     const pokeInformation = await getPokemonById(pokemonid);
-
-        //     console.log(pokeInformation);
-        // };
-        // fn();
-
-        // Async/Await -> IEFI
-        (async () => {
-            try {
-                const pokeInformation = await getPokemonById(pokemonid);
-                setPokemon(pokeInformation);
-            } catch (error) {
-                console.error(error);
-            } finally {
-                console.log('end!!!');
-            }
-        })();
-
-    }, []);
+            setLoading(false);
+        }
+    }, [pokemonData]);
 
     return (
-        <View>
-            <Text>Information Page</Text>
-            <Text>{pokemonid}</Text>
-
-            <Link to='/'>
-                <Text> Go To Home!!!</Text>
-            </Link>
+        <View style={styles.container}>
+            {loading ? (
+                <Text>Cargando...</Text>
+            ) : error ? (
+                <Text style={{ color: 'red' }}>{error}</Text>
+            ) : (
+                <>
+                    <Image
+                        style={styles.image}
+                        source={{ uri: pokemonData.sprites.front_default }}
+                    />
+                    <Text style={styles.name}>Nombre: {pokemonData.name}</Text>
+                    <Text style={styles.attribute}>Altura: {pokemonData.height}</Text>
+                    <Text style={styles.attribute}>Peso: {pokemonData.weight}</Text>
+                    <Text style={styles.attribute}>Tipo(s): {pokemonData.types.map(type => type.type.name).join(', ')}</Text>
+                    <Text style={styles.attribute}>Especie: {pokemonData.species.name}</Text> {/* Agregamos el atributo de especie */}
+                    <Text style={styles.attribute}>Habilidad(es): {pokemonData.abilities.map(ability => ability.ability.name).join(', ')}</Text>
+                    <Text style={styles.attribute}>Experiencia base: {pokemonData.base_experience}</Text>
+                    <Text style={styles.attribute}>Movimientos: {pokemonData.moves.map(move => move.move.name).join(', ')}</Text>
+                    <Text style={styles.attribute}>Habilidades ocultas: {pokemonData.abilities.filter(ability => ability.is_hidden).map(ability => ability.ability.name).join(', ')}</Text>
+                    {/* Agrega más atributos aquí */}
+                </>
+            )}
         </View>
     );
 }
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    image: {
+        width: 200,
+        height: 200,
+    },
+    name: {
+        fontSize: 24,
+        fontWeight: 'bold',
+    },
+    attribute: {
+        fontSize: 16,
+    },
+});
 
 export default Information;
