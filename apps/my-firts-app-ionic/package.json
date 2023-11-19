@@ -1,7 +1,7 @@
 {
-  "name": "photo-gallery-capacitor-react",
+  "name": "photo-gallery",
   "private": true,
-  "version": "4.0.0",
+  "version": "0.0.1",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -12,13 +12,12 @@
     "lint": "eslint"
   },
   "dependencies": {
-    "@capacitor/android": "^5.5.0",
+    "@capacitor/android": "^5.5.1",
     "@capacitor/app": "5.0.6",
     "@capacitor/camera": "^5.0.7",
-    "@capacitor/core": "5.5.0",
-    "@capacitor/filesystem": "5.1.1",
+    "@capacitor/core": "5.5.1",
+    "@capacitor/filesystem": "^5.1.4",
     "@capacitor/haptics": "5.0.6",
-    "@capacitor/ios": "5.5.0",
     "@capacitor/keyboard": "5.0.6",
     "@capacitor/preferences": "^5.0.6",
     "@capacitor/status-bar": "5.0.6",
@@ -27,14 +26,18 @@
     "@ionic/react-router": "^7.0.0",
     "@types/react-router": "^5.1.20",
     "@types/react-router-dom": "^5.3.3",
+    "autoprefixer": "^10.4.16",
     "ionicons": "^7.0.0",
+    "postcss": "^8.4.31",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router": "^5.3.4",
-    "react-router-dom": "^5.3.4"
+    "react-router-dom": "^5.3.4",
+    "tailwindcss": "^3.3.5"
   },
   "devDependencies": {
-    "@capacitor/cli": "5.5.0",
+    "@capacitor/cli": "5.5.1",
+    "@testing-library/dom": ">=7.21.4",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^14.0.0",
     "@testing-library/user-event": "^14.4.3",
@@ -46,9 +49,10 @@
     "eslint": "^8.35.0",
     "eslint-plugin-react": "^7.32.2",
     "jsdom": "^22.1.0",
+    "terser": "^5.4.0",
     "typescript": "^5.1.6",
     "vite": "^4.3.9",
     "vitest": "^0.32.2"
   },
-  "description": "Build a photo gallery app that runs on iOS, Android, and the web - with just one codebase."
+  "description": "An Ionic project"
 }

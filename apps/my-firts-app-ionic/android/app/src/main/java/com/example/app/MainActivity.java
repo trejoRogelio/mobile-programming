@@ -1,4 +1,4 @@
-package io.ionic.demo.pg.react;
+package com.example.app;
 
 import com.getcapacitor.BridgeActivity;
 
