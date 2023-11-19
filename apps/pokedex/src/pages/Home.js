@@ -2,6 +2,10 @@ import { Button, StyleSheet, Text, View, Image, TextInput, ActivityIndicator } f
 import { Link } from 'react-router-native';
 
 
+//Components
+
+//import List from '../components/List'
+
 // Services
 import { getPokemonByName } from '../services/pokeapi';
 import { useState } from 'react';
@@ -64,6 +68,7 @@ function Home() {
                 <View>
                     <Text>Filters!!!</Text>
                 </View>
+
             </View>
         </View>
     );
