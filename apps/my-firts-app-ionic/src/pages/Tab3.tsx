@@ -1,4 +1,4 @@
-// Tab3.tsx
+
 import React, { useState } from 'react';
 import {
   IonContent,
@@ -14,7 +14,7 @@ import {
   IonImg,
   IonIcon,
 } from '@ionic/react';
-import { camera, close, cameraReverse } from 'ionicons/icons'; // Importa los iconos necesarios
+import { camera, close, cameraReverse } from 'ionicons/icons';
 import GalleryComponent from '../components/GalleryComponent';
 import { usePhotoGallery, UserPhoto } from '../hooks/usePhotoGallery';
 import { Preferences } from '@capacitor/preferences';
@@ -32,24 +32,19 @@ const Tab3: React.FC = () => {
   };
 
   const handleRetakePhoto = async (id: string) => {
-    // Close the modal
     handleCloseModal();
-
-    // Find the selected photo by id
+    
     const selected = photos.find((photo) => photo.id === id);
 
     if (!selected) {
       return;
     }
 
-    // Take a new photo
+    deletePhoto(selected);
+
     const newPhoto: UserPhoto = await takePhoto();
 
-    // Update the existing photo with the new photo using the same id
-    const updatedPhotos = photos.map((photo) =>
-      photo.id === id ? { ...newPhoto, id } : photo
-    );
-
+    const updatedPhotos = [...photos, newPhoto];
     Preferences.set({ key: PHOTO_STORAGE, value: JSON.stringify(updatedPhotos) });
 
     setSelectedPhoto(newPhoto);
@@ -57,14 +52,9 @@ const Tab3: React.FC = () => {
   };
 
   const handleOpenCamera = async () => {
-    // Take a new photo
     const newPhoto: UserPhoto = await takePhoto();
-
-    // Add the new photo to the gallery
     const updatedPhotos = [...photos, newPhoto];
-
     Preferences.set({ key: PHOTO_STORAGE, value: JSON.stringify(updatedPhotos) });
-
     setSelectedPhoto(newPhoto);
   };
 
@@ -107,8 +97,6 @@ const Tab3: React.FC = () => {
             </IonRow>
           </IonGrid>
         </IonModal>
-
-       
       </IonContent>
     </IonPage>
   );

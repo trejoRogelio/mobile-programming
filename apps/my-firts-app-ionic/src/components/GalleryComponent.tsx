@@ -1,34 +1,42 @@
-
-import React from 'react';
-import { IonCol, IonImg, IonButton, IonAlert } from '@ionic/react';
+// GalleryComponent.tsx
+import React, { useState } from 'react';
+import { IonCol, IonImg, IonButton, IonIcon, IonAlert } from '@ionic/react';
+import { trash, refresh } from 'ionicons/icons';
 import { UserPhoto } from '../hooks/usePhotoGallery';
 
 interface GalleryComponentProps {
   photos: UserPhoto[];
   onDelete: (photo: UserPhoto) => void;
   onRetake: (photo: UserPhoto) => void;
+  onRestore: (photo: UserPhoto) => void;
   onPhotoClick: (photo: UserPhoto) => void;
 }
 
-const GalleryComponent: React.FC<GalleryComponentProps> = ({ photos, onDelete, onRetake, onPhotoClick }) => {
-  const [showAlert, setShowAlert] = React.useState(false);
-  const [photoToDelete, setPhotoToDelete] = React.useState<UserPhoto | undefined>(undefined);
+const GalleryComponent: React.FC<GalleryComponentProps> = ({
+  photos,
+  onDelete,
+  onRetake,
+  onRestore,
+  onPhotoClick,
+}) => {
+  const [showDeleteAlert, setShowDeleteAlert] = useState(false);
+  const [selectedPhotoToDelete, setSelectedPhotoToDelete] = useState<UserPhoto | null>(null);
 
-  const handleDeleteClick = (photo: UserPhoto) => {
-    setPhotoToDelete(photo);
-    setShowAlert(true);
+  const handleDelete = (photo: UserPhoto) => {
+    setSelectedPhotoToDelete(photo);
+    setShowDeleteAlert(true);
   };
 
   const handleDeleteConfirmed = () => {
-    if (photoToDelete) {
-      onDelete(photoToDelete);
+    if (selectedPhotoToDelete) {
+      onDelete(selectedPhotoToDelete);
     }
-    setShowAlert(false);
+    setShowDeleteAlert(false);
   };
 
-  const handleDeleteCanceled = () => {
-    setPhotoToDelete(undefined);
-    setShowAlert(false);
+  const handleDeleteCancelled = () => {
+    setSelectedPhotoToDelete(null);
+    setShowDeleteAlert(false);
   };
 
   return (
@@ -36,28 +44,33 @@ const GalleryComponent: React.FC<GalleryComponentProps> = ({ photos, onDelete, o
       {photos.map((photo) => (
         <IonCol key={photo.id}>
           <IonImg src={photo.webviewPath} onClick={() => onPhotoClick(photo)} />
-          <IonButton onClick={() => handleDeleteClick(photo)}>Eliminar</IonButton>
+
+ 
+
+          <IonButton onClick={() => handleDelete(photo)}>
+            <IonIcon icon={trash} />
+            Eliminar
+          </IonButton>
+
+          <IonAlert
+            isOpen={showDeleteAlert}
+            onDidDismiss={handleDeleteCancelled}
+            header={'Eliminar Foto'}
+            message={'¿Estás seguro de que quieres eliminar esta foto?'}
+            buttons={[
+              {
+                text: 'Cancelar',
+                role: 'cancel',
+                handler: handleDeleteCancelled,
+              },
+              {
+                text: 'Eliminar',
+                handler: handleDeleteConfirmed,
+              },
+            ]}
+          />
         </IonCol>
       ))}
-
-      {/* Alert for confirming photo deletion */}
-      <IonAlert
-        isOpen={showAlert}
-        onDidDismiss={handleDeleteCanceled}
-        header={'Eliminar Foto'}
-        message={'¿Estás seguro de que deseas eliminar esta foto?'}
-        buttons={[
-          {
-            text: 'Cancelar',
-            role: 'cancel',
-            handler: handleDeleteCanceled,
-          },
-          {
-            text: 'Eliminar',
-            handler: handleDeleteConfirmed,
-          },
-        ]}
-      />
     </IonCol>
   );
 };
