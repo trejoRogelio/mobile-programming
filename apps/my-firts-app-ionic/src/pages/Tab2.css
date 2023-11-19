@@ -1,0 +1,18 @@
+ion-content {
+    --ion-background-color: #ffe6e6; /* Fondo más claro */
+  }
+  
+  ion-button {
+    --ion-color-primary: #ff0066;
+    --background: #ff0066; /* Color de fondo del botón flotante */
+    --color: #ffffff; /* Color del ícono y del texto en el botón flotante */
+
+  }
+  
+  ion-icon {
+    --color: #ffffff; /* Color del ícono de la cámara */
+  }
+
+  ion-tabs {
+    --ion-color-primary: #ff0066; /* Cambia a un rosa más fuerte para los tabs */
+  }
