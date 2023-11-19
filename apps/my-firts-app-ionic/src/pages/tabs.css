@@ -1,0 +1,19 @@
+body {
+    --ion-background-color: #657275; 
+  }
+
+  ion-header {
+    --ion-background-color: #cbe4ea; 
+  }
+
+  ion-row {
+    --ion-background-color: #ead1cb; 
+  }
+
+  ion-title{
+    font-size: 3.5em;
+    font-weight: bold;
+    
+  }
+
+  

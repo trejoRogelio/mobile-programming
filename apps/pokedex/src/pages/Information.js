@@ -1,59 +1,48 @@
-import { Button, Text, View, } from 'react-native';
-import { Link, useParams } from 'react-router-native';
+import React from 'react';
+import { Text, View, StyleSheet, ScrollView, FlatList } from 'react-native';
+import { useParams } from 'react-router-native';
 import { useEffect, useState } from 'react';
-
-// Services 
 import { getPokemonById } from '../services/pokeapi';
+import PokemonData from '../components/PokemonData';
+import RegresoHome from '../components/RegresoHome';
 
 function Information() {
     const [pokemon, setPokemon] = useState();
-
     const { pokemonid } = useParams();
 
     useEffect(() => {
-        // Manera de Hacelo con promesas
-        // getPokemonById(pokemonid)
-        //     .then((pokeInofrmation) => {
-        //         console.log(pokeInofrmation);
-        //     })
-        //     .catch((error) => {
-        //     })
-        //     .finally(() => {
-
-        //     });
-
-        // Async/Await -> Funcion 
-        // const fn = async () => {
-        //     const pokeInformation = await getPokemonById(pokemonid);
-
-        //     console.log(pokeInformation);
-        // };
-        // fn();
-
-        // Async/Await -> IEFI
         (async () => {
             try {
                 const pokeInformation = await getPokemonById(pokemonid);
                 setPokemon(pokeInformation);
             } catch (error) {
                 console.error(error);
-            } finally {
-                console.log('end!!!');
             }
         })();
-
     }, []);
 
     return (
-        <View>
-            <Text>Information Page</Text>
-            <Text>{pokemonid}</Text>
-
-            <Link to='/'>
-                <Text> Go To Home!!!</Text>
-            </Link>
-        </View>
+        <ScrollView>
+            <View style={styles.container}>
+                <Text style={styles.texto}>Information Page</Text>
+                <PokemonData pokemon={pokemon} />
+                <RegresoHome />
+            </View>
+        </ScrollView>
     );
 }
+
+const styles = StyleSheet.create({
+    container:{
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    texto: {
+        fontSize: 25,
+        textAlign: 'center',
+        fontWeight: 'bold',
+    },
+})
 
 export default Information;
