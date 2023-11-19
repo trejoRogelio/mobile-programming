@@ -4,6 +4,8 @@ import { useState } from 'react';
 
 import * as ImagePiker from 'expo-image-picker';
 
+// Hernández Macías César Alejandro
+
 export default function App() {
     const [imageUri, setImageUri] = useState("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTK2nG24AYDm6FOEC7jIfgubO96GbRso2Xshu1f8abSYQ&s");
 

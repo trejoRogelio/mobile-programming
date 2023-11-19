@@ -1,40 +1,26 @@
 import { Button, Text, View, } from 'react-native';
 import { Link, useParams } from 'react-router-native';
 import { useEffect, useState } from 'react';
+import PokemonDetails from '../components/PokemonDetails';
+import Aesthetic from '../components/Aesthetic';
 
-// Services 
 import { getPokemonById } from '../services/pokeapi';
 
 function Information() {
     const [pokemon, setPokemon] = useState();
 
     const { pokemonid } = useParams();
+    const [abilities, setAbilities] = useState([]);
+    const [moves, setMoves] = useState([]);
 
     useEffect(() => {
-        // Manera de Hacelo con promesas
-        // getPokemonById(pokemonid)
-        //     .then((pokeInofrmation) => {
-        //         console.log(pokeInofrmation);
-        //     })
-        //     .catch((error) => {
-        //     })
-        //     .finally(() => {
 
-        //     });
-
-        // Async/Await -> Funcion 
-        // const fn = async () => {
-        //     const pokeInformation = await getPokemonById(pokemonid);
-
-        //     console.log(pokeInformation);
-        // };
-        // fn();
-
-        // Async/Await -> IEFI
         (async () => {
             try {
                 const pokeInformation = await getPokemonById(pokemonid);
                 setPokemon(pokeInformation);
+                setAbilities(pokeInformation.abilities);
+                setMoves(pokeInformation.moves);
             } catch (error) {
                 console.error(error);
             } finally {
@@ -46,11 +32,12 @@ function Information() {
 
     return (
         <View>
-            <Text>Information Page</Text>
-            <Text>{pokemonid}</Text>
-
-            <Link to='/'>
-                <Text> Go To Home!!!</Text>
+            <Text style={Aesthetic.title} >Pokemon Stats</Text>
+            {pokemon && (
+                    <PokemonDetails pokemon={pokemon} abilities={abilities} moves={moves} />
+                )}
+            <Link style={Aesthetic.boton} to='/' >
+                <Text style={Aesthetic.textoBoton}>Go To Home</Text>
             </Link>
         </View>
     );
