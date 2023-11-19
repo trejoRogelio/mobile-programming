@@ -1,0 +1,14 @@
+/* Tab2.css */
+.random-design {
+    background-color: #3498db; /* Color de fondo */
+    color: #ffffff; /* Color del texto */
+  }
+  
+  .random-design IonTitle {
+    color: #2ecc71; /* Color del título */
+  }
+  
+  .random-design IonFabButton {
+    --background: #e74c3c; /* Color del botón flotante */
+  }
+  

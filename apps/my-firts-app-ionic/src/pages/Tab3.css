@@ -1,0 +1,22 @@
+/* Tab3.css */
+
+/* Cambios en el fondo y el color del texto del encabezado */
+ion-header {
+    background-color: #2c3e50; /* Color de fondo del encabezado */
+  }
+  
+  ion-title {
+    color: darkblue; /* Color del texto del encabezado */
+  }
+  
+  /* Cambios en el fondo del contenido */
+  ion-content {
+    background-color: #ecf0f1; /* Color de fondo del contenido */
+  }
+  
+  /* Cambios en el tamaño y color del texto del contenido */
+  .explore-container {
+    font-size: 68px; /* Tamaño de texto del contenido */
+    color: #333; /* Color de texto del contenido */
+  }
+  
