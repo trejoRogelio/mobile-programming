@@ -19,14 +19,7 @@ const Tab1: React.FC = () => {
                     </IonToolbar>
                 </IonHeader>
                 <ExploreContainer name="Tab 1 page" />
-                <IonButton id="present-alert">Click Me</IonButton>
-                <IonAlert
-                    trigger="present-alert"
-                    header="Alert"
-                    subHeader="Important message"
-                    message="This is an alert!"
-                    buttons={['OK']}
-                ></IonAlert>
+                
             </IonContent>
         </IonPage>
     );

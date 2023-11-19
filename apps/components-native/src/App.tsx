@@ -21,7 +21,7 @@ import '@ionic/react/css/display.css';
 
 /* Theme variables */
 import './theme/variables.css';
-
+import { images, square, triangle } from 'ionicons/icons';
 setupIonicReact();
 
 const App: React.FC = () => (
@@ -37,6 +37,7 @@ const App: React.FC = () => (
       </IonRouterOutlet>
     </IonReactRouter>
   </IonApp>
+  
 );
 
 export default App;
