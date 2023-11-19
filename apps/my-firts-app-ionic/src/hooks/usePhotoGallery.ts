@@ -7,10 +7,24 @@ import { Filesystem, Directory } from '@capacitor/filesystem';
 import { Preferences } from '@capacitor/preferences';
 import { Capacitor } from '@capacitor/core';
 
+
+
 const PHOTO_STORAGE = 'photos';
+
+const getRandomPhoto = (photos: UserPhoto[]) => {
+  if (photos.length === 0) {
+    return null;
+  }
+
+  const randomIndex = Math.floor(Math.random() * photos.length);
+  return photos[randomIndex];
+};
+
 export function usePhotoGallery() {
 
   const [photos, setPhotos] = useState<UserPhoto[]>([]);
+
+  const randomPhoto = getRandomPhoto(photos);
 
   useEffect(() => {
     const loadSaved = async () => {
@@ -44,6 +58,7 @@ export function usePhotoGallery() {
     const newPhotos = [savedFileImage, ...photos];
     setPhotos(newPhotos);
     Preferences.set({key: PHOTO_STORAGE,value: JSON.stringify(newPhotos)});
+    window.location.reload();
   };
 
   const savePicture = async (photo: Photo, fileName: string): Promise<UserPhoto> => {
@@ -100,7 +115,8 @@ export function usePhotoGallery() {
   return {
     deletePhoto,
     photos,
-    takePhoto
+    takePhoto,
+    randomPhoto
   };
 }
 
