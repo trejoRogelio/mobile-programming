@@ -13,14 +13,19 @@ function Navbar() {
 const styles = StyleSheet.create({
     navbar: {
         marginTop: Constants.statusBarHeight,
-        padding: 20,
-        backgroundColor: '#E53939'
+        padding: 30,
+        backgroundColor: '#cc0000',
+        borderWidth: 3, 
+        borderColor: '#000000', 
     },
     navbarText: {
-        color: 'white',
+        color: '#ffde00',
+        shadowColor: '#000000',
+        shadowOpacity: 10, 
         fontSize: 30,
         fontStyle: 'italic',
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        textAlign: 'center'
     }
 });
 

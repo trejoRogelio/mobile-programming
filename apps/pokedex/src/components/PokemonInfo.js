@@ -1,16 +1,12 @@
 import React from 'react';
-import { Text, View, ScrollView, StyleSheet, ImageBackground } from 'react-native';
+import { Text, View, StyleSheet, Image} from 'react-native';
 import { useParams } from 'react-router-native';
 import { useEffect, useState } from 'react';
-
-import PokemonInfo from '../components/PokemonInfo';
-import Skills from '../components/Skills';
-import HomeButton from '../components/HomeButton';
 
 // Servicios 
 import { getPokemonById } from '../services/pokeapi';
 
-const Information = () => {
+const PokemonInfo = () => {
     const [pokemon, setPokemon] = useState(null);
     const { pokemonid } = useParams();
 
@@ -48,33 +44,42 @@ const Information = () => {
     }, [pokemonid]);
 
     return (
-        <ImageBackground source={require('../../assets/fondo.jpg')} style={styles.backgroundImage}>
-            <View style={styles.container}>
-                {pokemon ? (
-                    <ScrollView>
-                        <PokemonInfo/>
-                        <Skills/>
-                        <HomeButton/>
-                    </ScrollView>
-                ) : (
-                    <Text>Loading...</Text>
-                )}
-            </View>
-        </ImageBackground>
+        <View style={styles.container}>
+            {pokemon ? (
+                <>
+                    <Image
+                        source={{ uri: pokemon.sprites.front_default }}
+                        style={styles.image}
+                    />
+                    <Text style={styles.name}>{pokemon.name}</Text>
+                </>
+            ) : (
+                <Text>Loading...</Text>
+            )}
+        </View>
     );
 };
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        backgroundColor: '#007ACC',
         alignItems: 'center',
         justifyContent: 'center',
+        marginTop: 15
     },
-    backgroundImage: {
-        flex: 1,
-        width: '100%',
-        height: '100%'
+    image: {
+        width: 250,
+        height: 250,
+        marginBottom: 20,
+    },
+    name: {
+        fontSize: 30,
+        fontWeight: 'bold',
+        fontStyle: 'italic',
+        color: '#ffffff',
+        marginBottom: 10
     }
 });
 
-export default Information;
+export default PokemonInfo;

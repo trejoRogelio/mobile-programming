@@ -10,10 +10,10 @@ import {
     setupIonicReact
 } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
-import { images, square, planet } from 'ionicons/icons';
-import Tab1 from './pages/Tab1';
-import Tab2 from './pages/Tab2';
-import Tab3 from './pages/Tab3';
+import { images, square, planet, camera } from 'ionicons/icons';
+import Pag1 from './pages/Pag1';
+import Pag2 from './pages/Pag2';
+import Pag3 from './pages/Pag3';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -41,31 +41,31 @@ const App: React.FC = () => (
         <IonReactRouter>
             <IonTabs>
                 <IonRouterOutlet>
-                    <Route exact path="/tab1">
-                        <Tab1 />
+                    <Route exact path="/Pag1">
+                        <Pag1 />
                     </Route>
-                    <Route exact path="/tab2">
-                        <Tab2 />
+                    <Route exact path="/Pag2">
+                        <Pag2 />
                     </Route>
-                    <Route path="/tab3">
-                        <Tab3 />
+                    <Route path="/Pag3">
+                        <Pag3 />
                     </Route>
                     <Route exact path="/">
-                        <Redirect to="/tab1" />
+                        <Redirect to="/Pag1" />
                     </Route>
                 </IonRouterOutlet>
                 <IonTabBar slot="bottom">
-                    <IonTabButton tab="tab1" href="/tab1">
+                    <IonTabButton tab="Pag1" href="/Pag1">
                         <IonIcon aria-hidden="true" icon={planet} />
-                        <IonLabel>Tab 1</IonLabel>
+                        <IonLabel>Inicio</IonLabel>
                     </IonTabButton>
-                    <IonTabButton tab="tab2" href="/tab2">
-                        <IonIcon icon={images} />
-                        <IonLabel>Photos</IonLabel>
+                    <IonTabButton tab="Pag2" href="/Pag2">
+                        <IonIcon icon={camera} />
+                        <IonLabel>Cámara</IonLabel>
                     </IonTabButton>
-                    <IonTabButton tab="tab3" href="/tab3">
-                        <IonIcon aria-hidden="true" icon={square} />
-                        <IonLabel>Tab 3</IonLabel>
+                    <IonTabButton tab="Pag3" href="/Pag3">
+                        <IonIcon aria-hidden="true" icon={images} />
+                        <IonLabel>Galería</IonLabel>
                     </IonTabButton>
                 </IonTabBar>
             </IonTabs>
