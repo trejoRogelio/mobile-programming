@@ -13,7 +13,7 @@ export async function getPokemonByName(name) {
 }
 
 export async function getPokemonById(id) {
-    const URI = new URL(`pokemon/${id}`, BASE_URL);
+    const URI = new URL(`pokemon/${id}?limit=20`, BASE_URL);
 
     const resp = await fetch(URI.href);
 

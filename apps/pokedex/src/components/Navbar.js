@@ -6,6 +6,7 @@ function Navbar() {
     return (
         <View style={styles.navbar}>
             <Text style={styles.navbarText}>PokéDex ISC</Text>
+            
         </View>
     );
 }

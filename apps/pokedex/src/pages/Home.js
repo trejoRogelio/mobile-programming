@@ -1,84 +1,102 @@
-import { Button, StyleSheet, Text, View, Image, TextInput, ActivityIndicator } from 'react-native';
+import React, { useState } from 'react';
+import { ActivityIndicator, StyleSheet, Text, View, Image, TextInput, Alert } from 'react-native';
+
 import { Link } from 'react-router-native';
-
-
-// Services
 import { getPokemonByName } from '../services/pokeapi';
-import { useState } from 'react';
+import InputComponent from '../components/InputComponent';
 
-function Home() {
+const Home = () => {
     const [pokemonName, setPokemonName] = useState('');
     const [pokemon, setPokemon] = useState();
     const [loading, setLoading] = useState(false);
-    const [error, setError] = useState(false);
 
-    const handdleChangeText = (namePokemon) => setPokemonName(namePokemon);
+    const handleInputChange = (namePokemon) => setPokemonName(namePokemon);
 
-    const handdlePress = async () => {
+    const handleSearch = async () => {
+        if (!pokemonName.trim()) {
+            Alert.alert('Error', 'Por favor ingresa un nombre de Pokémon.');
+            return;
+        }
         setLoading(true);
         try {
             const pokeInformation = await getPokemonByName(pokemonName);
+            await new Promise(resolve => setTimeout(resolve, 1000));
             setPokemon(pokeInformation);
         } catch (error) {
-            setError(!!error);
+            if (error.response && error.response.status === 404) {
+                Alert.alert('Error', 'Pokémon no encontrado.');
+            } else {
+                Alert.alert('Error', 'Ocurrió un problema al buscar el Pokémon.');
+            }
+            setPokemon(null);
         } finally {
             setLoading(false);
         }
     };
 
     return (
-        <View>
+        <View style={styles.container}>
             <View style={styles.main}>
-                {
-                    loading && <ActivityIndicator style={{ width: 'auto', height: 250 }} size='large' color='#E53939' />
-                }
-                {
-                    !loading && pokemon && (
-                        <Link to={`/information/${pokemon.id}`}>
-                            <Image
-                                style={{ height: 250, width: 250 }}
-                                source={
-                                    {
-                                        uri: pokemon?.sprites?.front_default
-                                    }
-                                }
-                            />
-                        </Link>
-                    )
-                }
-                {
-                    (error || !pokemon && !loading) && <Image
-                        style={{ height: 250 }}
-                        source={require('../../assets/pokebola.png')} />
-                }
-                <View style={styles.inputs}>
-                    <TextInput
-                        onChangeText={handdleChangeText}
-                        placeholder='Search a Pokemon!'
-                    />
-                    <Button
-                        onPress={handdlePress}
-                        title='Search'
-                    />
-                </View>
-                <View>
-                    <Text>Filters!!!</Text>
+                {loading && <ActivityIndicator style={styles.loader} size='large' color='#E53939' />}
+                {!loading && pokemon && (
+                    <Link to={`/information/${pokemon.id}`}>
+                        <Image
+                            style={styles.pokemonImage}
+                            source={{
+                                uri: pokemon?.sprites?.front_default
+                            }}
+                        />
+                    </Link>
+                )}
+                <InputComponent
+                    value={pokemonName}
+                    onChangeText={handleInputChange}
+                    onPress={handleSearch}
+                />
+                <View style={styles.filters}>
+                    <Link to='/list'>
+                        <Text style={styles.linkText}>Go PokeList</Text>
+                    </Link>
                 </View>
             </View>
         </View>
     );
-}
+};
 
 const styles = StyleSheet.create({
-    main: {
-        flexDirection: 'column',
-        alignItems: 'center',
+    container: {
+        flex: 1,
+        backgroundColor: '#fff',
     },
-    inputs: {
-        width: 400,
-        flexDirection: 'row',
-        justifyContent: 'space-around'
-    }
+    linkText: {
+        color: '#fff',
+        padding: 10,
+        backgroundColor: '#000',
+        marginTop: 20,
+        borderRadius: 10
+    },
+    title: {
+        fontSize: 24,
+        color: '#fff',
+        fontWeight: 'bold',
+    },
+    main: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    loader: {
+        width: 'auto',
+        height: 250,
+    },
+    pokemonImage: {
+        height: 250,
+        width: 250,
+        marginBottom: 20,
+    },
+    filters: {
+        marginBottom: 50,
+    },
 });
 
 export default Home;
