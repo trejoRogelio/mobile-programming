@@ -100,7 +100,8 @@ export function usePhotoGallery() {
   return {
     deletePhoto,
     photos,
-    takePhoto
+    takePhoto, 
+    savePicture,
   };
 }
 
@@ -108,6 +109,7 @@ export interface UserPhoto {
   filepath: string;
   webviewPath?: string;
 }
+
 
 export async function base64FromPath(path: string): Promise<string> {
   const response = await fetch(path);

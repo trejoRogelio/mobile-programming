@@ -1,0 +1,28 @@
+:root {
+    --primary-color: #3498db;
+    --secondary-color: #2ecc71;
+    --text-color: #333;
+  }
+  
+  /* Usa las variables de color en tus componentes */
+  .custom-tab-bar {
+    background-color: var(--primary-color);
+  }
+  
+  .custom-tab-button {
+    color: var(--secondary-color);
+  }
+  
+  .custom-tab-label {
+    color: var(--text-color);
+  }
+  .custom-tab-button {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+  }
+  
+  /* O cualquier otro componente que desees resaltar */
+  .custom-card {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+  }
