@@ -33,18 +33,28 @@ export function usePhotoGallery() {
     loadSaved();
   }, []);
 
-  const takePhoto = async () => {
-    const photo = await Camera.getPhoto({
-      resultType: CameraResultType.Uri,
-      source: CameraSource.Camera,
-      quality: 100
-    });
-    const fileName = new Date().getTime() + '.jpeg';
-    const savedFileImage = await savePicture(photo, fileName);
-    const newPhotos = [savedFileImage, ...photos];
-    setPhotos(newPhotos);
-    Preferences.set({key: PHOTO_STORAGE,value: JSON.stringify(newPhotos)});
-  };
+  const takePhoto = async (): Promise<UserPhoto | undefined> => {
+    try {
+      const photo = await Camera.getPhoto({
+        resultType: CameraResultType.Uri,
+        source: CameraSource.Camera,
+        quality: 100,
+      });
+
+      const fileName = new Date().getTime() + '.jpeg';
+      const savedFileImage = await savePicture(photo, fileName);
+
+      const newPhotos = [savedFileImage, ...photos];
+      setPhotos(newPhotos);
+      Preferences.set({ key: PHOTO_STORAGE, value: JSON.stringify(newPhotos) });
+
+      return savedFileImage;
+  } catch (error){
+    console.error('error al tomar la foto:', error)
+    return undefined;
+  }
+};
+  
 
   const savePicture = async (photo: Photo, fileName: string): Promise<UserPhoto> => {
     let base64Data: string;
