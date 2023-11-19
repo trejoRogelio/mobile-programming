@@ -1,0 +1,18 @@
+/* Tab1.css */
+.custom-text {
+    color: #ff5733; /* Color de texto personalizado */
+    font-size: 1.5em; /* Tamaño de texto personalizado */
+    font-family: 'Arial', sans-serif; /* Tipo de letra personalizado */
+  }
+  
+  .custom-textarea {
+    color: #2ecc71; /* Color de texto personalizado para el área de texto */
+    font-size: 1.2em; /* Tamaño de texto personalizado para el área de texto */
+  }
+  
+  .custom-button {
+    background-color: #3498db; /* Color de fondo personalizado para el botón */
+    color: #ffffff; /* Color de texto personalizado para el botón */
+    font-size: 1.2em; /* Tamaño de texto personalizado para el botón */
+  }
+  
