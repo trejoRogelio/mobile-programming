@@ -1,0 +1,28 @@
+ion-header {
+    background-color: #eb38ff;
+  }
+  
+  ion-title {
+    color: #ffffff;
+  }
+  
+  ion-searchbar {
+    margin: 10px;
+  }
+  
+  ion-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    cursor: pointer;
+  }
+  
+  ion-button {
+    margin: 10px;
+  }
+  
+  ion-content {
+    padding: 10px;
+  }
+
+  

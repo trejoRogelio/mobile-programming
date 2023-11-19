@@ -1,0 +1,21 @@
+ion-header {
+    background-color: #4caf50;
+  }
+  
+  ion-title {
+    color: #ffffff;
+  }
+  
+  ion-content {
+    padding: 20px;
+  }
+  
+  ion-fab-button {
+    --background: #ff00e6;
+    --box-shadow: none;
+  }
+  
+  ion-fab-button:hover {
+    --background: #00f7ff;
+  }
+  
