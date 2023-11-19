@@ -1,0 +1,40 @@
+
+ion-page {
+    background-color: #f0f0f0; 
+  
+
+  ion-header {
+    background-color: #333; 
+    color: white;
+  }
+  
+
+  ion-content {
+    --ion-background-color: #f0f0f0; 
+  }
+  
+
+  ion-title {
+    color: #333; 
+  }
+  
+
+  ion-card {
+    margin: 8px;
+    background-color: white;
+  }
+  
+  ion-card-header {
+    background-color: #333; 
+    color: white;
+  }
+  
+  ion-card-content {
+    padding: 16px;
+  }
+  
+  ion-button {
+    color: #333; 
+  }
+  
+}

@@ -1,20 +1,23 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import Constants from 'expo-constants';
 
 function Navbar() {
     return (
         <View style={styles.navbar}>
-            <Text style={styles.navbarText}>PokéDex ISC</Text>
+            <Text style={styles.navbarText}>Pokédex PAU</Text>
         </View>
     );
 }
 
 const styles = StyleSheet.create({
     navbar: {
-        marginTop: Constants.statusBarHeight,
-        padding: 20,
-        backgroundColor: '#E53939'
+        padding: 10,
+        backgroundColor: '#E53939',
+        height: 140, // Ajusta la altura a 80 puntos
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderBottomWidth: 2,
+        borderBottomColor: 'white'
     },
     navbarText: {
         color: 'white',

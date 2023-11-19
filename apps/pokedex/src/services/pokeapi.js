@@ -19,7 +19,7 @@ export async function getPokemonById(id) {
 
     // Si existe un error! en algun punto de la petición
     if (!resp.ok)
-        return Promise.reject(resp.json());
+       // return Promise.reject(resp.json());
 
     return resp.json();
 }
