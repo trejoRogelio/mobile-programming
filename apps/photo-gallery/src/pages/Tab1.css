@@ -1,0 +1,49 @@
+ion-header {
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
+    background-color: #eb38ff;
+=======
+    background-color: #ee00ff;
+>>>>>>> Stashed changes
+=======
+    background-color: #ee00ff;
+>>>>>>> Stashed changes
+  }
+  
+  ion-title {
+    color: #ffffff;
+  }
+  
+  ion-searchbar {
+    margin: 10px;
+  }
+  
+  ion-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    cursor: pointer;
+  }
+  
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
+  ion-button {
+    margin: 10px;
+  }
+  
+  ion-content {
+    padding: 10px;
+  }
+
+=======
+=======
+>>>>>>> Stashed changes
+  ion-content {
+    padding: 10px;
+    --background: rgb(149, 0, 255);
+  }
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
+>>>>>>> Stashed changes
+  

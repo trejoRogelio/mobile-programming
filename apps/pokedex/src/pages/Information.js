@@ -1,58 +1,36 @@
-import { Button, Text, View, } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, ScrollView } from 'react-native';
 import { Link, useParams } from 'react-router-native';
-import { useEffect, useState } from 'react';
-
-// Services 
 import { getPokemonById } from '../services/pokeapi';
+import PokemonAttributes from '../components/PokemonAttributes';
+import { informationStyles } from '../components/styles';
 
 function Information() {
-    const [pokemon, setPokemon] = useState();
-
+    const [pokemon, setPokemon] = useState(null);
     const { pokemonid } = useParams();
 
     useEffect(() => {
-        // Manera de Hacelo con promesas
-        // getPokemonById(pokemonid)
-        //     .then((pokeInofrmation) => {
-        //         console.log(pokeInofrmation);
-        //     })
-        //     .catch((error) => {
-        //     })
-        //     .finally(() => {
-
-        //     });
-
-        // Async/Await -> Funcion 
-        // const fn = async () => {
-        //     const pokeInformation = await getPokemonById(pokemonid);
-
-        //     console.log(pokeInformation);
-        // };
-        // fn();
-
-        // Async/Await -> IEFI
         (async () => {
             try {
                 const pokeInformation = await getPokemonById(pokemonid);
                 setPokemon(pokeInformation);
             } catch (error) {
                 console.error(error);
-            } finally {
-                console.log('end!!!');
             }
         })();
+    }, [pokemonid]);
 
-    }, []);
+    if (!pokemon) {
+        return <View><Text>Loading...</Text></View>;
+    }
 
     return (
-        <View>
-            <Text>Information Page</Text>
-            <Text>{pokemonid}</Text>
-
-            <Link to='/'>
-                <Text> Go To Home!!!</Text>
+        <ScrollView>
+            <PokemonAttributes attributes={pokemon} />
+            <Link to='/' style={informationStyles.link}>
+                <Text style={informationStyles.linkText}> Go To Home!!!</Text>
             </Link>
-        </View>
+        </ScrollView>
     );
 }
 
