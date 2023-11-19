@@ -1,63 +1,33 @@
-import React, { useState } from 'react';
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonFab, IonFabButton, IonIcon, IonGrid, IonRow, IonCol, IonImg, IonActionSheet } from '@ionic/react';
-import { camera, trash, close } from 'ionicons/icons';
-import { usePhotoGallery, UserPhoto } from '../hooks/usePhotoGallery';
+// Tab2.tsx
+import React from 'react';
+import { IonPage, IonRouterOutlet, IonTabs, IonTabBar, IonTabButton, IonLabel, IonIcon } from '@ionic/react';
+import { Route, Redirect } from 'react-router-dom';
+import TakePhotoPage from './TakePhotoPage';
+import GalleryPage from './GalleryPage';
+import { camera, images } from 'ionicons/icons';
 
 const Tab2: React.FC = () => {
-  const { deletePhoto, photos, takePhoto } = usePhotoGallery();
-  const [photoToDelete, setPhotoToDelete] = useState<UserPhoto>();
-
   return (
     <IonPage>
-      <IonHeader>
-        <IonToolbar>
-          <IonTitle>Photo Gallery</IonTitle>
-        </IonToolbar>
-      </IonHeader>
-      <IonContent>
-      <IonHeader collapse="condense">
-          <IonToolbar>
-            <IonTitle size="large">Photo Gallery</IonTitle>
-          </IonToolbar>
-        </IonHeader>
-        <IonGrid>
-          <IonRow>
-            {photos.map((photo, index) => (
-              <IonCol size="6" key={index}>
-                <IonImg onClick={() => setPhotoToDelete(photo)} src={photo.webviewPath} />
-              </IonCol>
-            ))}
-          </IonRow>
-        </IonGrid>
+      <IonTabs>
+        <IonRouterOutlet>
+          <Route path="/tab2/take-photo" component={TakePhotoPage} exact={true} />
+          <Route path="/tab2/gallery" component={GalleryPage} exact={true} />
+          <Redirect from="/tab2" to="/tab2/gallery" />
+        </IonRouterOutlet>
 
-        <IonFab vertical="bottom" horizontal="center" slot="fixed">
-          <IonFabButton onClick={() => takePhoto()}>
-            <IonIcon icon={camera}></IonIcon>
-          </IonFabButton>
-        </IonFab>
+        <IonTabBar slot="bottom">
+          <IonTabButton tab="take-photo" href="/tab2/take-photo">
+            <IonIcon icon={camera} />
+            <IonLabel>Take Photo</IonLabel>
+          </IonTabButton>
 
-        <IonActionSheet
-          isOpen={!!photoToDelete}
-          buttons={[{
-            text: 'Delete',
-            role: 'destructive',
-            icon: trash,
-            handler: () => {
-              if (photoToDelete) {
-                deletePhoto(photoToDelete);
-                setPhotoToDelete(undefined);
-              }
-            }
-          }, {
-            text: 'Cancel',
-            icon: close,
-            role: 'cancel'
-          }]}
-          onDidDismiss={() => setPhotoToDelete(undefined)}
-        />
-
-
-      </IonContent>
+          <IonTabButton tab="gallery" href="/tab2/gallery">
+            <IonIcon icon={images} />
+            <IonLabel>Gallery</IonLabel>
+          </IonTabButton>
+        </IonTabBar>
+      </IonTabs>
     </IonPage>
   );
 };

@@ -5,7 +5,7 @@ import Constants from 'expo-constants';
 function Navbar() {
     return (
         <View style={styles.navbar}>
-            <Text style={styles.navbarText}>PokéDex ISC</Text>
+            <Text style={styles.navbarText}>PokéDex Chavex</Text>
         </View>
     );
 }
@@ -14,13 +14,14 @@ const styles = StyleSheet.create({
     navbar: {
         marginTop: Constants.statusBarHeight,
         padding: 20,
-        backgroundColor: '#E53939'
+        backgroundColor: 'purple'
     },
     navbarText: {
         color: 'white',
-        fontSize: 30,
+        fontSize: 35,
         fontStyle: 'italic',
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        
     }
 });
 
