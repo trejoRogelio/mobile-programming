@@ -1,5 +1,9 @@
 ion-header {
+<<<<<<< Updated upstream
     background-color: #eb38ff;
+=======
+    background-color: #ee00ff;
+>>>>>>> Stashed changes
   }
   
   ion-title {
@@ -17,6 +21,7 @@ ion-header {
     cursor: pointer;
   }
   
+<<<<<<< Updated upstream
   ion-button {
     margin: 10px;
   }
@@ -25,4 +30,10 @@ ion-header {
     padding: 10px;
   }
 
+=======
+  ion-content {
+    padding: 10px;
+    --background: rgb(149, 0, 255);
+  }
+>>>>>>> Stashed changes
   

@@ -1,3 +1,7 @@
+<<<<<<< Updated upstream
+=======
+// SlideshowModal.tsx
+>>>>>>> Stashed changes
 import React from 'react';
 import { IonModal, IonContent, IonButton } from '@ionic/react';
 import Slideshow from './Slideshow';

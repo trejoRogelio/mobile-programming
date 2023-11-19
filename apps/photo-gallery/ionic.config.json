@@ -1,7 +1,11 @@
 {
   "name": "photo-gallery",
+<<<<<<< Updated upstream
   "integrations": {
     "capacitor": {}
   },
+=======
+  "integrations": {},
+>>>>>>> Stashed changes
   "type": "react-vite"
 }

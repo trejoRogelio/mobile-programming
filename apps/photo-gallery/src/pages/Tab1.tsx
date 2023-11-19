@@ -1,3 +1,7 @@
+<<<<<<< Updated upstream
+=======
+import './Tab1.css';
+>>>>>>> Stashed changes
 import React, { useState } from 'react';
 import {
   IonContent,
@@ -15,7 +19,10 @@ import { usePhotoGallery, UserPhoto } from '../hooks/usePhotoGallery';
 import ImageModal from '../components/ImageModal';
 import SlideshowModal from '../components/SlideshowModal';
 import SearchBar from '../components/SearchBar';
+<<<<<<< Updated upstream
 import './Tab1.css';
+=======
+>>>>>>> Stashed changes
 
 const Tab1: React.FC = () => {
   const { photos, deletePhoto, updatePhoto } = usePhotoGallery();

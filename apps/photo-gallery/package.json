@@ -1,7 +1,13 @@
 {
+<<<<<<< Updated upstream
   "name": "photo-gallery",
   "private": true,
   "version": "0.0.1",
+=======
+  "name": "ionic-app-base",
+  "private": true,
+  "version": "0.0.0",
+>>>>>>> Stashed changes
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -12,6 +18,7 @@
     "lint": "eslint"
   },
   "dependencies": {
+<<<<<<< Updated upstream
     "@capacitor/android": "5.5.1",
     "@capacitor/app": "5.0.6",
     "@capacitor/camera": "^5.0.7",
@@ -22,6 +29,11 @@
     "@capacitor/keyboard": "5.0.6",
     "@capacitor/preferences": "^5.0.6",
     "@capacitor/status-bar": "5.0.6",
+=======
+    "@capacitor/camera": "^5.0.7",
+    "@capacitor/filesystem": "^5.1.4",
+    "@capacitor/preferences": "^5.0.6",
+>>>>>>> Stashed changes
     "@ionic/pwa-elements": "^3.2.2",
     "@ionic/react": "^7.0.0",
     "@ionic/react-router": "^7.0.0",
@@ -34,7 +46,10 @@
     "react-router-dom": "^5.3.4"
   },
   "devDependencies": {
+<<<<<<< Updated upstream
     "@capacitor/cli": "5.5.1",
+=======
+>>>>>>> Stashed changes
     "@testing-library/dom": ">=7.21.4",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^14.0.0",
@@ -51,6 +66,10 @@
     "typescript": "^5.1.6",
     "vite": "^4.3.9",
     "vitest": "^0.32.2"
+<<<<<<< Updated upstream
   },
   "description": "An Ionic project"
+=======
+  }
+>>>>>>> Stashed changes
 }

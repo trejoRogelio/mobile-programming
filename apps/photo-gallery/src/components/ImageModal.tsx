@@ -1,3 +1,7 @@
+<<<<<<< Updated upstream
+=======
+// ImageModal.tsx
+>>>>>>> Stashed changes
 import React from 'react';
 import { IonModal, IonContent, IonImg, IonButton, IonIcon, IonLabel } from '@ionic/react';
 import { close, create, trash, arrowForward, arrowBack } from 'ionicons/icons';

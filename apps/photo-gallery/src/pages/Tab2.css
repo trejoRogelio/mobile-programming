@@ -1,21 +1,37 @@
+<<<<<<< Updated upstream
 ion-header {
     background-color: #4caf50;
   }
   
   ion-title {
+=======
+    ion-title {
+>>>>>>> Stashed changes
     color: #ffffff;
   }
   
   ion-content {
     padding: 20px;
+<<<<<<< Updated upstream
   }
   
   ion-fab-button {
     --background: #ff00e6;
+=======
+    --background: rgb(149, 0, 255);
+  }
+  
+  ion-fab-button {
+    --background: rgb(238, 0, 255);
+>>>>>>> Stashed changes
     --box-shadow: none;
   }
   
   ion-fab-button:hover {
+<<<<<<< Updated upstream
     --background: #00f7ff;
+=======
+    --background: rgb(0, 255, 255);
+>>>>>>> Stashed changes
   }
   

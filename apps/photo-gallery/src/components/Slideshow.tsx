@@ -1,3 +1,7 @@
+<<<<<<< Updated upstream
+=======
+// Slideshow.tsx
+>>>>>>> Stashed changes
 import React, { useState, useEffect } from 'react';
 import { IonImg } from '@ionic/react';
 import { UserPhoto } from '../hooks/usePhotoGallery';

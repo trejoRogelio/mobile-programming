@@ -1,3 +1,7 @@
+<<<<<<< Updated upstream
+=======
+// SearchBar.tsx
+>>>>>>> Stashed changes
 import React, { Component } from 'react';
 import { IonSearchbar } from '@ionic/react';
 

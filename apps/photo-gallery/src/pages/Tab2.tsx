@@ -1,4 +1,8 @@
+<<<<<<< Updated upstream
 import './Tab2.css';
+=======
+import '../pages/Tab2.css';
+>>>>>>> Stashed changes
 import { camera } from 'ionicons/icons';
 import {
   IonContent,
@@ -14,7 +18,11 @@ import { usePhotoGallery } from '../hooks/usePhotoGallery';
 
 
 const Tab2: React.FC = () => {
+<<<<<<< Updated upstream
   const { photos, takePhoto, deletePhoto } = usePhotoGallery();
+=======
+  const { photos, takePhoto } = usePhotoGallery();
+>>>>>>> Stashed changes
   return (
     <IonPage>
       <IonHeader>
@@ -33,4 +41,8 @@ const Tab2: React.FC = () => {
   );
 };
 
+<<<<<<< Updated upstream
 export default Tab2;
+=======
+export default Tab2;
+>>>>>>> Stashed changes
