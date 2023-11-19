@@ -24,7 +24,7 @@ const PhotoModal: React.FC<PhotoModalProps> = ({ isOpen, onClose, photoUrl }) =>
     <IonModal isOpen={isOpen}>
       <IonHeader>
         <IonToolbar>
-          <IonTitle>Photo Viewer</IonTitle>
+          <IonTitle>Photo Viewer Section</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent>
