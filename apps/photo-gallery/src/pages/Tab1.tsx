@@ -1,4 +1,8 @@
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
+=======
+import './Tab1.css';
+>>>>>>> Stashed changes
 =======
 import './Tab1.css';
 >>>>>>> Stashed changes
@@ -20,7 +24,10 @@ import ImageModal from '../components/ImageModal';
 import SlideshowModal from '../components/SlideshowModal';
 import SearchBar from '../components/SearchBar';
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 import './Tab1.css';
+=======
+>>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
 

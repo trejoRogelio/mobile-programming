@@ -1,11 +1,5 @@
 {
-  "name": "photo-gallery",
-<<<<<<< Updated upstream
-  "integrations": {
-    "capacitor": {}
-  },
-=======
+  "name": "New Ionic App",
   "integrations": {},
->>>>>>> Stashed changes
-  "type": "react-vite"
+  "type": "react"
 }

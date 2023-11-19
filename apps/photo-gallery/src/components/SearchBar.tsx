@@ -1,4 +1,8 @@
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
+=======
+// SearchBar.tsx
+>>>>>>> Stashed changes
 =======
 // SearchBar.tsx
 >>>>>>> Stashed changes

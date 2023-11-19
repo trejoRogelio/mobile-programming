@@ -1,4 +1,8 @@
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
+=======
+// ImageModal.tsx
+>>>>>>> Stashed changes
 =======
 // ImageModal.tsx
 >>>>>>> Stashed changes

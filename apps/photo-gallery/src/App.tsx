@@ -11,7 +11,11 @@ import {
 } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 import { images, camera } from 'ionicons/icons';
+=======
+import {  camera, images } from 'ionicons/icons';
+>>>>>>> Stashed changes
 =======
 import {  camera, images } from 'ionicons/icons';
 >>>>>>> Stashed changes
@@ -62,7 +66,11 @@ const App: React.FC = () => (
           <IonTabButton tab="tab2" href="/tab2">
             <IonIcon aria-hidden="true" icon={camera} />
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
             <IonLabel>Camera</IonLabel>
+=======
+            <IonLabel>Tab 2</IonLabel>
+>>>>>>> Stashed changes
 =======
             <IonLabel>Tab 2</IonLabel>
 >>>>>>> Stashed changes

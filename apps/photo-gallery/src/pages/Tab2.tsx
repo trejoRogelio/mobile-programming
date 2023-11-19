@@ -1,5 +1,9 @@
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 import './Tab2.css';
+=======
+import '../pages/Tab2.css';
+>>>>>>> Stashed changes
 =======
 import '../pages/Tab2.css';
 >>>>>>> Stashed changes
@@ -19,7 +23,11 @@ import { usePhotoGallery } from '../hooks/usePhotoGallery';
 
 const Tab2: React.FC = () => {
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
   const { photos, takePhoto, deletePhoto } = usePhotoGallery();
+=======
+  const { photos, takePhoto } = usePhotoGallery();
+>>>>>>> Stashed changes
 =======
   const { photos, takePhoto } = usePhotoGallery();
 >>>>>>> Stashed changes
@@ -42,7 +50,11 @@ const Tab2: React.FC = () => {
 };
 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 export default Tab2;
+=======
+export default Tab2;
+>>>>>>> Stashed changes
 =======
 export default Tab2;
 >>>>>>> Stashed changes

@@ -1,8 +1,14 @@
 {
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
   "name": "photo-gallery",
   "private": true,
   "version": "0.0.1",
+=======
+  "name": "ionic-app-base",
+  "private": true,
+  "version": "0.0.0",
+>>>>>>> Stashed changes
 =======
   "name": "ionic-app-base",
   "private": true,
@@ -19,6 +25,7 @@
   },
   "dependencies": {
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
     "@capacitor/android": "5.5.1",
     "@capacitor/app": "5.0.6",
     "@capacitor/camera": "^5.0.7",
@@ -29,6 +36,11 @@
     "@capacitor/keyboard": "5.0.6",
     "@capacitor/preferences": "^5.0.6",
     "@capacitor/status-bar": "5.0.6",
+=======
+    "@capacitor/camera": "^5.0.7",
+    "@capacitor/filesystem": "^5.1.4",
+    "@capacitor/preferences": "^5.0.6",
+>>>>>>> Stashed changes
 =======
     "@capacitor/camera": "^5.0.7",
     "@capacitor/filesystem": "^5.1.4",
@@ -47,7 +59,10 @@
   },
   "devDependencies": {
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
     "@capacitor/cli": "5.5.1",
+=======
+>>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
     "@testing-library/dom": ">=7.21.4",
@@ -67,8 +82,12 @@
     "vite": "^4.3.9",
     "vitest": "^0.32.2"
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
   },
   "description": "An Ionic project"
+=======
+  }
+>>>>>>> Stashed changes
 =======
   }
 >>>>>>> Stashed changes

@@ -1,4 +1,8 @@
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
+=======
+// Slideshow.tsx
+>>>>>>> Stashed changes
 =======
 // Slideshow.tsx
 >>>>>>> Stashed changes

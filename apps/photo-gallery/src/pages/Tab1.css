@@ -1,6 +1,10 @@
 ion-header {
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
     background-color: #eb38ff;
+=======
+    background-color: #ee00ff;
+>>>>>>> Stashed changes
 =======
     background-color: #ee00ff;
 >>>>>>> Stashed changes
@@ -22,6 +26,7 @@ ion-header {
   }
   
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
   ion-button {
     margin: 10px;
   }
@@ -31,9 +36,14 @@ ion-header {
   }
 
 =======
+=======
+>>>>>>> Stashed changes
   ion-content {
     padding: 10px;
     --background: rgb(149, 0, 255);
   }
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
   
