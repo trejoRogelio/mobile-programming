@@ -96,6 +96,20 @@ export function usePhotoGallery() {
     });
     setPhotos(newPhotos);
   };
+  const replacePhoto = async (photo: UserPhoto) => {
+    // Get the index of the selected photo
+    const index = photos.findIndex(p => p.filepath === photo.filepath);
+  
+    // If the photo was found, remove it from the array
+    if (index !== -1) {
+      photos.splice(index, 1);
+    }
+  
+    // Take a new photo
+    await takePhoto();
+  
+    
+  };
 
   return {
     deletePhoto,
