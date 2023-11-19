@@ -1,7 +1,6 @@
 import { Button, StyleSheet, Text, View, Image, TextInput, ActivityIndicator } from 'react-native';
 import { Link } from 'react-router-native';
 
-
 // Services
 import { getPokemonByName } from '../services/pokeapi';
 import { useState } from 'react';
@@ -15,6 +14,7 @@ function Home() {
     const handdleChangeText = (namePokemon) => setPokemonName(namePokemon);
 
     const handdlePress = async () => {
+        setError(false);
         setLoading(true);
         try {
             const pokeInformation = await getPokemonByName(pokemonName);
@@ -33,7 +33,7 @@ function Home() {
                     loading && <ActivityIndicator style={{ width: 'auto', height: 250 }} size='large' color='#E53939' />
                 }
                 {
-                    !loading && pokemon && (
+                    !loading && pokemon && !error ? (
                         <Link to={`/information/${pokemon.id}`}>
                             <Image
                                 style={{ height: 250, width: 250 }}
@@ -44,12 +44,16 @@ function Home() {
                                 }
                             />
                         </Link>
-                    )
+                    ) : null
                 }
                 {
-                    (error || !pokemon && !loading) && <Image
+                    (!pokemon && !loading) && <Image
                         style={{ height: 250 }}
                         source={require('../../assets/pokebola.png')} />
+                }{
+                    error && (
+                        <Text style={styles.errorText}>Pokémon not found</Text>
+                    )
                 }
                 <View style={styles.inputs}>
                     <TextInput
@@ -62,7 +66,9 @@ function Home() {
                     />
                 </View>
                 <View>
-                    <Text>Filters!!!</Text>
+                    <Link to='/random-pokemon'>
+                        <Text > RandomPokemons!!</Text>
+                    </Link>
                 </View>
             </View>
         </View>
@@ -78,7 +84,13 @@ const styles = StyleSheet.create({
         width: 400,
         flexDirection: 'row',
         justifyContent: 'space-around'
-    }
+    },
+    errorText: {
+        color: 'red', // Puedes cambiar el color a tu preferencia
+        fontSize: 20, // Puedes ajustar el tamaño de fuente según tus necesidades
+        textAlign: 'center', // Para centrar el texto en el medio
+        marginVertical: 10, // Margen vertical para separar el mensaje de otros elementos
+      }
 });
 
 export default Home;
