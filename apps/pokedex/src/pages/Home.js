@@ -1,84 +1,77 @@
-import { Button, StyleSheet, Text, View, Image, TextInput, ActivityIndicator } from 'react-native';
+import React, { useState } from 'react';
+import { View, Image, ActivityIndicator, StyleSheet } from 'react-native';
 import { Link } from 'react-router-native';
-
-
-// Services
 import { getPokemonByName } from '../services/pokeapi';
-import { useState } from 'react';
+import PokemonList from '../components/PokemonList';
+import SearchBar from '../components/SearchBar';
 
 function Home() {
-    const [pokemonName, setPokemonName] = useState('');
-    const [pokemon, setPokemon] = useState();
+    const [pokemon, setPokemon] = useState(null);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(false);
+    const [pokemonName, setPokemonName] = useState('');
 
-    const handdleChangeText = (namePokemon) => setPokemonName(namePokemon);
-
-    const handdlePress = async () => {
+    const handleSearch = async (name) => {
         setLoading(true);
+        setError(false);
+        setPokemonName(name);
+
+        if (!name) {
+            setLoading(false);
+            setError(false);
+            setPokemon(null);
+            return;
+        }
+
         try {
-            const pokeInformation = await getPokemonByName(pokemonName);
+            const pokeInformation = await getPokemonByName(name);
             setPokemon(pokeInformation);
         } catch (error) {
-            setError(!!error);
+            setError(true);
+            setPokemon(null);
         } finally {
             setLoading(false);
         }
     };
 
     return (
-        <View>
-            <View style={styles.main}>
-                {
-                    loading && <ActivityIndicator style={{ width: 'auto', height: 250 }} size='large' color='#E53939' />
-                }
-                {
-                    !loading && pokemon && (
-                        <Link to={`/information/${pokemon.id}`}>
-                            <Image
-                                style={{ height: 250, width: 250 }}
-                                source={
-                                    {
-                                        uri: pokemon?.sprites?.front_default
-                                    }
-                                }
-                            />
-                        </Link>
-                    )
-                }
-                {
-                    (error || !pokemon && !loading) && <Image
-                        style={{ height: 250 }}
-                        source={require('../../assets/pokebola.png')} />
-                }
-                <View style={styles.inputs}>
-                    <TextInput
-                        onChangeText={handdleChangeText}
-                        placeholder='Search a Pokemon!'
-                    />
-                    <Button
-                        onPress={handdlePress}
-                        title='Search'
-                    />
-                </View>
-                <View>
-                    <Text>Filters!!!</Text>
-                </View>
-            </View>
+        <View style={styles.container}>
+            {loading && <ActivityIndicator style={styles.loader} size='large' color='#E53939' />}
+            {!loading && !error && !pokemon && (
+                <Image style={styles.pokeballImage} source={require('../../assets/pokebola.png')} />
+            )}
+            {error && !loading && !pokemon && (
+                <Image style={styles.pokeballImage} source={require('../../assets/pokebolarota.png')} />
+            )}
+            {!loading && pokemon && (
+                <Link to={`/information/${pokemon.id}`}>
+                    <Image style={styles.pokemonImage} source={{ uri: pokemon?.sprites?.front_default }} />
+                </Link>
+            )}
+            <SearchBar onSearch={handleSearch} />
+            <PokemonList />
         </View>
     );
 }
 
 const styles = StyleSheet.create({
-    main: {
-        flexDirection: 'column',
+    container: {
+        flex: 1,
         alignItems: 'center',
+        padding: 20,
     },
-    inputs: {
-        width: 400,
-        flexDirection: 'row',
-        justifyContent: 'space-around'
-    }
+    loader: {
+        width: 'auto',
+        height: 250,
+    },
+    pokeballImage: {
+        height: 250,
+        width: 250,
+    },
+    pokemonImage: {
+        height: 250,
+        width: 250,
+    },
 });
 
 export default Home;

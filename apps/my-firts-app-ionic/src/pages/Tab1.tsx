@@ -1,35 +1,27 @@
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonAlert, IonButton } from '@ionic/react';
-import ExploreContainer from '../components/ExploreContainer';
+// Tab1.tsx
+import React from 'react';
+import { IonButton, IonContent, IonFab, IonFabButton, IonHeader, IonIcon, IonPage, IonTitle, IonToolbar } from '@ionic/react';
+import { camera, trash, close, create } from 'ionicons/icons';
 
-
-import './Tab1.css';
+import { usePhotoGallery } from '../hooks/usePhotoGallery';
+import TakePhotoButton from '../components/TakePhotoButton';
 
 const Tab1: React.FC = () => {
-    return (
-        <IonPage>
-            <IonHeader>
-                <IonToolbar>
-                    <IonTitle>Tab 1</IonTitle>
-                </IonToolbar>
-            </IonHeader>
-            <IonContent fullscreen>
-                <IonHeader collapse="condense">
-                    <IonToolbar>
-                        <IonTitle size="large">Tab 1</IonTitle>
-                    </IonToolbar>
-                </IonHeader>
-                <ExploreContainer name="Tab 1 page" />
-                <IonButton id="present-alert">Click Me</IonButton>
-                <IonAlert
-                    trigger="present-alert"
-                    header="Alert"
-                    subHeader="Important message"
-                    message="This is an alert!"
-                    buttons={['OK']}
-                ></IonAlert>
-            </IonContent>
-        </IonPage>
-    );
+  const { takePhoto } = usePhotoGallery();
+
+  return (
+    <IonPage>
+      <IonHeader>
+        <IonToolbar>
+          <IonTitle>Take Photo</IonTitle>
+        </IonToolbar>
+      </IonHeader>
+      <IonContent className="ion-padding">
+      <TakePhotoButton onClick={takePhoto}/>
+      </IonContent>
+    </IonPage>
+  );
 };
 
 export default Tab1;
+

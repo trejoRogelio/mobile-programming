@@ -1,0 +1,23 @@
+/* PhotoGridComponent.css */
+
+.photo-grid {
+    padding: 30px; /* Relleno */
+    background-color: rgb(49, 13, 54);
+  }
+  
+  .photo-col {
+    margin-bottom: 10px; /* Espaciado inferior entre columnas */
+  }
+  
+  .photo-img {
+    width: 100%; /* Ancho completo */
+    height: 100%; /* Altura completa */
+    object-fit: cover; /* Ajuste de la imagen para cubrir el contenedor */
+    cursor: pointer; /* Cambia el cursor al pasar por encima */
+    transition: transform 0.2s ease-in-out; /* Agrega una transición suave al efecto de hover */
+  }
+  
+  .photo-img:hover {
+    transform: scale(1.1); /* Efecto de escala al pasar el mouse por encima */
+  }
+  
