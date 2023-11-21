@@ -10,7 +10,7 @@ import {
     setupIonicReact
 } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
-import { images, square, planet } from 'ionicons/icons';
+import { home, folderOpen , camera } from 'ionicons/icons';
 import Tab1 from './pages/Tab1';
 import Tab2 from './pages/Tab2';
 import Tab3 from './pages/Tab3';
@@ -56,16 +56,16 @@ const App: React.FC = () => (
                 </IonRouterOutlet>
                 <IonTabBar slot="bottom">
                     <IonTabButton tab="tab1" href="/tab1">
-                        <IonIcon aria-hidden="true" icon={planet} />
-                        <IonLabel>Tab 1</IonLabel>
+                        <IonIcon aria-hidden="true" icon={home} />
+                        <IonLabel>Inicio</IonLabel>
                     </IonTabButton>
                     <IonTabButton tab="tab2" href="/tab2">
-                        <IonIcon icon={images} />
-                        <IonLabel>Photos</IonLabel>
+                        <IonIcon icon={camera} />
+                        <IonLabel>Cámara</IonLabel>
                     </IonTabButton>
                     <IonTabButton tab="tab3" href="/tab3">
-                        <IonIcon aria-hidden="true" icon={square} />
-                        <IonLabel>Tab 3</IonLabel>
+                        <IonIcon aria-hidden="true" icon={folderOpen} />
+                        <IonLabel>Galeria</IonLabel>
                     </IonTabButton>
                 </IonTabBar>
             </IonTabs>
